@@ -5,9 +5,11 @@ const recipeSchema = new mongoose.recipeSchema({
     title: {type: String, required: true},
     description: {type: String},
     ingredients: [{type: String, required: true}],
-    steps: [{type: String, required: true}],
-    picture: {type: String},
-    tags: [{type: String}]
+    ingredientSubset: [{type: String}],
+    steps: [{type: String}],
+    image: {type: String},
+    tags: [{type: String}],
+    link: {type: String}
 })
 
 const Recipe = mongoose.model('Recipe, recipeSchema')
