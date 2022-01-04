@@ -1,7 +1,6 @@
-const { mongo } = require('mongoose')
 const mongoose = require('../db/connection.js')
 
-const recipeSchema = new mongoose.recipeSchema({
+const recipeSchema = new mongoose.Schema({
     title: {type: String, required: true},
     description: {type: String},
     ingredients: [{type: String, required: true}],
@@ -12,6 +11,6 @@ const recipeSchema = new mongoose.recipeSchema({
     link: {type: String}
 })
 
-const Recipe = mongoose.model('Recipe, recipeSchema')
+const Recipe = mongoose.model('Recipe', recipeSchema)
 
 module.exports = Recipe
