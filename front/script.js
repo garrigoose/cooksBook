@@ -1,7 +1,9 @@
 // constants
-const recipes = document.querySelector("#recipes-container");
+const recipes = document.querySelector("#recipes");
 const loader = document.querySelector("#loader");
 const searcher = document.querySelector("#searcher");
+const goToRecipe = document.querySelectorAll(".go-to-recipe");
+const recipeCard = document.querySelectorAll(".recipe-card");
 
 // functions
 
@@ -11,14 +13,16 @@ function addRecipes(recipeData) {
   recipeData.forEach((recipe) => {
     if (!recipe) return;
     let innerDiv = document.createElement("div");
-    innerDiv.innerHTML = `<div class="card w-25">
-    <img class="card-img-top" src="${recipe.image}" alt="Card image cap">
+    innerDiv.setAttribute("class", "card recipe-card col-lg-3 w-20");
+    innerDiv.innerHTML = `<a href="/${recipe._id}">
+    <img class="card-img-top" src="${recipe.image}" alt="Card image cap" id="${recipe._id}" data-id="${recipe._id}"></a>
     <div class="card-body">
     <h5 class="card-title">'${recipe.title}'</h5>
     <p class="card-text">'${recipe.description}'</a>
-    </div>
+    <a href="/${recipe._id}"><button type="button" class="btn btn-info align-self-end go-to-recipe">Go To Recipe</button></a>
     </div>`;
     recipes.appendChild(innerDiv);
+    console.log(recipe._id);
   });
 }
 
@@ -36,14 +40,18 @@ loader.addEventListener("click", (e) => {
 
 searcher.addEventListener("click", (e) => {
   e.preventDefault();
-  console.log("something's happeneing");
-  // let newDiv = `<div class="card w-25">
-  //       <img class="card-img-top" src="https://picsum.photos/300/200
-  //       " alt="Card image cap">
-  //       <div class="card-body">
-  //       <h5 class="card-title">'card title'</h5>
-  //       <p class="card-text">'card text'</a>
-  //       </div>
-  //       </div>`;
-  // $(".recipes").append(newDiv);
+  console.log("something's happening");
+  recipes.innerHTML = "<p>insert modal here</p>";
+});
+
+goToRecipe.forEach((btn) =>
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    console.log(e);
+  })
+);
+
+recipeCard.addEventListener("click", (e) => {
+  e.preventDefault();
+  console.log("card clicked");
 });
