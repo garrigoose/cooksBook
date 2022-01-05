@@ -11,6 +11,8 @@
   "author": "Garri Kats",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.24.0",
+    "cors": "^2.8.5",
     "express": "^4.17.2",
     "method-override": "^3.0.0",
     "mongoose": "^6.1.3",
