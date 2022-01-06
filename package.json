@@ -1,26 +1,22 @@
 {
-  "name": "project_2",
+  "name": "cooksBook",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/garrigoose/cooksBook.git"
-  },
-  "author": "",
+  "keywords": [],
+  "author": "Garri Kats",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/garrigoose/cooksBook/issues"
-  },
-  "homepage": "https://github.com/garrigoose/cooksBook#readme",
   "dependencies": {
+    "axios": "^0.24.0",
     "cors": "^2.8.5",
+    "ejs": "^3.1.6",
     "express": "^4.17.2",
     "method-override": "^3.0.0",
-    "mongoose": "^6.1.4",
+    "mongoose": "^6.1.3",
     "nodemon": "^2.0.15"
   }
 }
