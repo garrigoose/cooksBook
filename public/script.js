@@ -3,8 +3,8 @@ window.onload = (event) => {
   const recipes = document.querySelector("#recipes");
   const loader = document.querySelector("#loader");
   const searcher = document.querySelector("#searcher");
-  const goToRecipe = document.querySelectorAll(".go-to-recipe");
   const adder = document.querySelector("#adder");
+  const creater = document.querySelector("#create-recipe-button");
   // functions
 
   // add recipe cards to the page
@@ -27,6 +27,7 @@ window.onload = (event) => {
     });
   }
 
+  // display one recipe
   function showRecipe(recipe) {
     let steps = recipe.steps;
     recipes.innerHTML = `
@@ -39,8 +40,19 @@ window.onload = (event) => {
       <ol>
         <li>${steps}</li>
       </ol>
+      <button type="button" class="btn btn-info" id="edit-button">Edit</button>
       </div>
       `;
+  }
+
+  // fetch recipes
+  function fetchRecipes() {
+    fetch("http://localhost:3000/recipes/all_recipes")
+      .then((response) => response.json())
+      .then((data) => {
+        addRecipes(data);
+        console.log("recipes loaded");
+      });
   }
 
   // event listeners
@@ -73,13 +85,46 @@ window.onload = (event) => {
   // open adder modal
   adder.addEventListener("click", (e) => {
     e.preventDefault();
+    console.log("add modal opened");
     $("#searchModal").modal("show");
   });
 
-  goToRecipe.forEach((btn) =>
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      console.log(e);
-    })
-  );
+  // create new recipe
+  creater.addEventListener("click", (e) => {
+    console.log("creater clicked");
+
+    const newRecipe = {
+      title: document.getElementById("title").value,
+      description: document.getElementById("description").value,
+      ingredients: document.getElementById("ingredients").value,
+      steps: document.getElementById("steps").value,
+      image: document.getElementById("image").value,
+      tags: document.getElementById("tags").value,
+    };
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newRecipe),
+    };
+
+    fetch("http://localhost:3000/recipes/", options)
+      .then((response) => {
+        if (!response.ok) {
+          throw Error(response.status);
+        }
+        (response) => response.json();
+      })
+      .then((newRecipe) => {
+        console.log(newRecipe);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    $("#searchModal").modal("hide");
+    fetchRecipes();
+  });
 };

@@ -43,7 +43,8 @@ router.get("/:id", (req, res) => {
 // Recipe New Route (Create)
 router.post("/", (req, res) => {
   Recipe.create(req.body).then(() => {
-    res.redirect("/");
+    console.log(req.body);
+    // res.redirect("/recipes/all_recipes");
   });
 });
 
