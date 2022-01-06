@@ -42,10 +42,8 @@ router.get("/:id", (req, res) => {
 
 // Recipe New Route (Create)
 router.post("/", (req, res) => {
-  Recipe.create(req.body).then((recipe) => {
-    return Recipe.find({}).then((recipes) => {
-      return res.json(recipes);
-    });
+  Recipe.create(req.body).then(() => {
+    res.redirect("/");
   });
 });
 
