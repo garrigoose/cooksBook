@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const adder = document.querySelector("#adder");
   const creater = document.querySelector("#create-recipe-button");
   const closeAddModal = document.querySelector("#close-add-modal");
+  let editter;
 
   // functions
 
@@ -62,6 +63,16 @@ document.addEventListener("DOMContentLoaded", function () {
       listItem.innerText = ingredient;
       ingredientsList.appendChild(listItem);
     });
+
+    editter = document.querySelector("#edit-button");
+
+    // open edit modal
+    editter.addEventListener("click", (e) => {
+      e.preventDefault();
+      console.log("edit clicked");
+      $("#searchModal").modal("hide");
+      $("#editModal").modal("show");
+    });
   }
 
   // fetch recipes
@@ -99,7 +110,6 @@ document.addEventListener("DOMContentLoaded", function () {
   recipes.addEventListener("click", (e) => {
     e.preventDefault();
     let id = e.target.dataset.id;
-    console.log(id);
     recipes.innerText = "";
     fetch(`http://localhost:3000/recipes/${id}`)
       .then((response) => response.json())
@@ -113,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
   adder.addEventListener("click", (e) => {
     e.preventDefault();
     console.log("add modal opened");
-    $("#searchModal").modal("show");
+    $("#addModal").modal("show");
   });
 
   // create new recipe
@@ -158,6 +168,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // close new recipe modal
   closeAddModal.addEventListener("click", (e) => {
     e.preventDefault();
-    $("#searchModal").modal("hide");
+    $("#addModal").modal("hide");
   });
 });
