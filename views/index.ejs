@@ -43,6 +43,7 @@
 
   <div class="container modals">
       <div id="addModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="false">
+
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
@@ -90,7 +91,59 @@
 
         </div>
       </div>
-  </div>
+      </div>
+      </div>
+
+      <div id="editModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="false">
+
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Edit Recipe</h5>
+              <button type="button" class="close btn-info" id='close-add-modal' data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+          </div>
+          <div class="modal-body">
+  
+            <form action="/recipes" method="post" id="edit-form">
+              <div class="mb-3">
+                <label class="form-label" for="title">Title</label>
+                <input class='form-control'type="text" name="title" id="title">
+              </div>
+              
+              <div class="mb-3">
+                <label class="form-label" for="description">Description</label>
+                <textarea name="Text1" cols="40" rows="5" class='form-control' type="text" name="description" id="description"></textarea>
+              </div>
+  
+              <div class="form-group">
+                <label class="form-label" for="ingredients">Ingredients</label>
+                <textarea name="Text1" cols="40" rows="5" class='form-control' type="text" name="ingredients" id="ingredients"></textarea>
+              </div>
+  
+              <div class="form-group">
+                <label class="form-label" for="steps">Steps</label>
+                <input class='form-control' type="text" name="steps" id="steps">
+              </div>
+  
+              <div class="form-group">
+                <label class="form-label" for="image">Image</label>
+                <input class='form-control' type="text" name="image" id="image">
+              </div>
+  
+              <div class="form-group">
+              <label class="form-label" for="tags">Tage</label>
+              <input class='form-control' type="text" name="tags" id="tags">
+              </div>
+                
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-info" id='create-recipe-button'>Submit</button>
+              </div>
+            </form>
+  
+          </div>
+        </div>
+        </div>
     
   </div>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>

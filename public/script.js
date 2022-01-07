@@ -18,17 +18,20 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!recipe) return;
 
       let innerDiv = document.createElement("div");
-      innerDiv.setAttribute(
-        "class",
-        "card recipe-card col-md-4 col-lg-3 w-20 "
-      );
-      innerDiv.innerHTML = `<a href="/${recipe._id}">
-        <img class="card-img-top" src="${recipe.image}" alt="Card image cap" id="${recipe._id}" data-id="${recipe._id}"></a>
+      innerDiv.setAttribute("class", "card recipe-card col-md-4 col-lg-3 w-20");
+      innerDiv.innerHTML = `
+        <a href="/${recipe._id}">
+        <img class="card-img-top" src="${recipe.image}" alt="Card image cap" id="${recipe._id}" data-id="${recipe._id}">
+        </a>
+
         <div class="card-body">
         <h5 class="card-title">'${recipe.title}'</h5>
         <p class="card-text recipe-text">'${recipe.description}'</p>
+
         <a href="/${recipe._id}">
-        <button onclick-="/${recipe._id}" type="button" class="btn btn-info align-self-end">Go To Recipe</button></a>
+        <button type="button" class="btn btn-info align-self-end">Go To Recipe</button>
+        </a>
+
         </div>`;
       recipes.appendChild(innerDiv);
     });
@@ -47,7 +50,8 @@ document.addEventListener("DOMContentLoaded", function () {
       <ul id='ingredients-list'></ul>
       <h4>Steps</h4>
       <ol id='steps-list'></ol>
-      <button type="button" class="btn btn-info" id="edit-button">Edit</button>
+      <button type="button" class="btn btn-info" id="edit-button" data-id='${recipe._id}'>Edit</button>
+      <button type="button" class="btn btn-info" id="delete-button">Delete</button>
       </div>
       `;
     let stepsList = document.querySelector("#steps-list");
@@ -65,6 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     editter = document.querySelector("#edit-button");
+    deleter = document.querySelector("#delete-button");
 
     // open edit modal
     editter.addEventListener("click", (e) => {
@@ -72,6 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log("edit clicked");
       $("#searchModal").modal("hide");
       $("#editModal").modal("show");
+      document.querySelector("#edit-form").setAttribute("action", "/recipes");
     });
   }
 
