@@ -15,48 +15,26 @@
   </head>
   <body>
 
-    <div class="container-fluid" id='nav-container'>
-      <div class="row justify-content-between bg-light">
-        <div class="col-sm-12 col-md-2 col-lg-2">
-          <h1 class="row">cooksBook</h1>
-        </div>
-        <div
-          class="col-sm-12 col-md-8 col-lg-8 navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end"
-        >
-          <ul class="nav">
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <button type="button" class="btn btn-info">Home</button></a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <button type="button" class="btn btn-info" id="loader">
-                  Load All
-                </button></a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <button type="button" class="btn btn-info" id='adder'>Add</button></a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <button type="button" class="btn btn-info data-bs-toggle="modal" data-bs-target="#searchModal" id="searcher">
-                  Search
-                </button></a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <button type="button" class="btn btn-info">Login</button></a
-              >
-            </li>
-          </ul>
-        </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end" id='nav-container'>
+      <div class="container-fluid bg-light">
+        <a class="navbar-brand" href="#">cooksBook</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <div class="navbar-nav">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link" href="#">Home</a>
+              <a class="nav-link" href="#" id="loader">All Recipes</a>
+              <a class="nav-link" href="#" id="adder">New Recipe</a>
+              <a class="nav-link" href="#" id="searcher">Search</a>
+              <a class="nav-link" href="#" id="login-button">Login</a>
+              <a class="nav-link d-none" href="#" id="logout-button">Logout</a>
+            </div>
+          </div>
       </div>
-    </div>
+    </nav>
 
     <div class="container" id='recipes-container'>
       <div class="row col-md-12 col-lg-12 gy-5 gx-5" id='recipes' style="display: flex">`
@@ -69,9 +47,8 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Add New Recipe</h5>
-            <button type="button" class="close btn-info" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close btn-info" id='close-add-modal' data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
-            </button>
         </div>
         <div class="modal-body">
 

@@ -1,10 +1,12 @@
-window.onload = (event) => {
+document.addEventListener("DOMContentLoaded", function () {
   // constants
   const recipes = document.querySelector("#recipes");
   const loader = document.querySelector("#loader");
   const searcher = document.querySelector("#searcher");
   const adder = document.querySelector("#adder");
   const creater = document.querySelector("#create-recipe-button");
+  const closeAddModal = document.querySelector("#close-add-modal");
+
   // functions
 
   // add recipe cards to the page
@@ -15,13 +17,17 @@ window.onload = (event) => {
       if (!recipe) return;
 
       let innerDiv = document.createElement("div");
-      innerDiv.setAttribute("class", "card recipe-card col-md-4 col-lg-3 w-20");
+      innerDiv.setAttribute(
+        "class",
+        "card recipe-card col-md-4 col-lg-3 w-20 "
+      );
       innerDiv.innerHTML = `<a href="/${recipe._id}">
         <img class="card-img-top" src="${recipe.image}" alt="Card image cap" id="${recipe._id}" data-id="${recipe._id}"></a>
         <div class="card-body">
         <h5 class="card-title">'${recipe.title}'</h5>
-        <p class="card-text recipe-text">'${recipe.description}'</p></a>
-        <a href="/${recipe._id}"><button type="button" class="btn btn-info align-self-end go-to-recipe">Go To Recipe</button></a>
+        <p class="card-text recipe-text">'${recipe.description}'</p>
+        <a href="/${recipe._id}">
+        <button onclick-="/${recipe._id}" type="button" class="btn btn-info align-self-end">Go To Recipe</button></a>
         </div>`;
       recipes.appendChild(innerDiv);
     });
@@ -33,7 +39,7 @@ window.onload = (event) => {
     recipes.innerHTML = `
       <div class='card w-80'>
       <h3 class='card-title'>${recipe.title}</h3>
-      <img class="card-img-top" src="${recipe.image}" alt="Card image cap">
+      <img src="${recipe.image}" style="width: 80%" alt="Card image cap">
       <h4>Ingredients</h4>
       <p>${recipe.ingredients}</p>
       <h4>Steps</h4>
@@ -127,4 +133,10 @@ window.onload = (event) => {
     $("#searchModal").modal("hide");
     fetchRecipes();
   });
-};
+
+  // close new recipe modal
+  closeAddModal.addEventListener("click", (e) => {
+    e.preventDefault();
+    $("#searchModal").modal("hide");
+  });
+});
