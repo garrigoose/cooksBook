@@ -36,19 +36,32 @@ document.addEventListener("DOMContentLoaded", function () {
   // display one recipe
   function showRecipe(recipe) {
     let steps = recipe.steps;
+    let ingredients = recipe.ingredients;
+
     recipes.innerHTML = `
       <div class='card w-80'>
       <h3 class='card-title'>${recipe.title}</h3>
       <img src="${recipe.image}" style="width: 80%" alt="Card image cap">
       <h4>Ingredients</h4>
-      <p>${recipe.ingredients}</p>
+      <ul id='ingredients-list'></ul>
       <h4>Steps</h4>
-      <ol>
-        <li>${steps}</li>
-      </ol>
+      <ol id='steps-list'></ol>
       <button type="button" class="btn btn-info" id="edit-button">Edit</button>
       </div>
       `;
+    let stepsList = document.querySelector("#steps-list");
+    steps.forEach((step) => {
+      let listItem = document.createElement("li");
+      listItem.innerText = step;
+      stepsList.appendChild(listItem);
+    });
+
+    let ingredientsList = document.querySelector("#ingredients-list");
+    ingredients.forEach((ingredient) => {
+      let listItem = document.createElement("li");
+      listItem.innerText = ingredient;
+      ingredientsList.appendChild(listItem);
+    });
   }
 
   // fetch recipes
@@ -59,6 +72,14 @@ document.addEventListener("DOMContentLoaded", function () {
         addRecipes(data);
         console.log("recipes loaded");
       });
+  }
+
+  // convert array to list
+  function arrayToList(arr) {
+    arr.forEach((el) => {
+      console.log(`<li>${el}</li>`);
+      return `<li>${el}</li>`;
+    });
   }
 
   // event listeners
