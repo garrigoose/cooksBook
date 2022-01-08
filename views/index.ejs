@@ -15,7 +15,7 @@
   </head>
   <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end" id='nav-container'>
+    <nav class="navbar navbar-expand-md navbar-expand-lg navbar-light bg-light d-flex justify-content-end" id='nav-container'>
       <div class="container-fluid bg-light">
         <a class="navbar-brand" href="#">cooksBook</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,7 +24,6 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
             <div class="navbar-nav">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
               <a class="nav-link" href="#">Home</a>
               <a class="nav-link" href="#" id="loader">All Recipes</a>
               <a class="nav-link" href="#" id="adder">New Recipe</a>
@@ -109,32 +108,32 @@
             <form action="/recipes" method="post" id="edit-form">
               <div class="mb-3">
                 <label class="form-label" for="title">Title</label>
-                <input class='form-control'type="text" name="title" id="title">
+                <input class='form-control'type="text" name="title" id="titleEdit">
               </div>
               
               <div class="mb-3">
                 <label class="form-label" for="description">Description</label>
-                <textarea name="Text1" cols="40" rows="5" class='form-control' type="text" name="description" id="description"></textarea>
+                <textarea name="Text1" cols="40" rows="5" class='form-control' type="text" name="description" id="descriptionEdit"></textarea>
               </div>
   
               <div class="form-group">
                 <label class="form-label" for="ingredients">Ingredients</label>
-                <textarea name="Text1" cols="40" rows="5" class='form-control' type="text" name="ingredients" id="ingredients"></textarea>
+                <textarea name="Text1" cols="40" rows="5" class='form-control' type="text" name="ingredients" id="ingredientsEdit"></textarea>
               </div>
   
               <div class="form-group">
                 <label class="form-label" for="steps">Steps</label>
-                <input class='form-control' type="text" name="steps" id="steps">
+                <input class='form-control' type="text" name="steps" id="stepsEdit">
               </div>
   
               <div class="form-group">
                 <label class="form-label" for="image">Image</label>
-                <input class='form-control' type="text" name="image" id="image">
+                <input class='form-control' type="text" name="image" id="imageEdit">
               </div>
   
               <div class="form-group">
               <label class="form-label" for="tags">Tage</label>
-              <input class='form-control' type="text" name="tags" id="tags">
+              <input class='form-control' type="text" name="tags" id="tagsEdit">
               </div>
                 
               <div class="modal-footer">

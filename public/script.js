@@ -20,9 +20,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
       let innerDiv = document.createElement("div");
       innerDiv.setAttribute("class", "card recipe-card col-md-4 col-lg-3 w-20");
+      innerDiv.setAttribute("data-id", "${recipe._id}");
       innerDiv.innerHTML = `
         <a href="/${recipe._id}">
-        <img class="card-img-top" src="${recipe.image}" alt="Card image cap" id="${recipe._id}" data-id="${recipe._id}">
+        <img class="card-img-top" src="${recipe.image}" alt="Card image cap" id="${recipe._id}" data-id="${recipe._id}" style="height: 200px; object-fit: cover;">
         </a>
 
         <div class="card-body">
@@ -30,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <p class="card-text recipe-text">'${recipe.description}'</p>
 
         <a href="/${recipe._id}">
-        <button type="button" class="btn btn-info align-self-end">Go To Recipe</button>
+        <button type="button" class="btn btn-info float-bottom" data-id="${recipe._id}">Go To Recipe</button>
         </a>
 
         </div>`;
@@ -79,10 +80,16 @@ document.addEventListener("DOMContentLoaded", function () {
     // open edit modal
     editter.addEventListener("click", (e) => {
       e.preventDefault();
-      console.log("edit clicked");
+      console.log(recipe);
       $("#searchModal").modal("hide");
       $("#editModal").modal("show");
       document.querySelector("#edit-form").setAttribute("action", "/recipes");
+      document.getElementById("titleEdit").value = recipe.title;
+      document.getElementById("descriptionEdit").value = recipe.description;
+      document.getElementById("ingredientsEdit").value = recipe.ingredients;
+      document.getElementById("stepsEdit").value = recipe.steps;
+      document.getElementById("imageEdit").value = recipe.image;
+      document.getElementById("tagsEdit").value = recipe.tags;
     });
 
     // delete recipe and redirect to /all_recipes
@@ -90,8 +97,9 @@ document.addEventListener("DOMContentLoaded", function () {
       e.preventDefault();
       fetch(`http://localhost:3000/recipes/${e.target.dataset.id}`, {
         method: "DELETE",
-      }).then((res) => {
-        console.log(res);
+      }).then((data) => {
+        console.log(data);
+        addRecipes(data);
         $("#modal-edit").modal("close");
       });
     });
