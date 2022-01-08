@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const adder = document.querySelector("#adder");
   const creater = document.querySelector("#create-recipe-button");
   const closeAddModal = document.querySelector("#close-add-modal");
+  const closeEditModal = document.querySelector("#close-edit-modal");
   let editter;
 
   // functions
@@ -42,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let steps = recipe.steps;
     let ingredients = recipe.ingredients;
 
+    // set innerHTML of div.recipe to that of parsed json
     recipes.innerHTML = `
       <div class='card w-80'>
       <h3 class='card-title'>${recipe.title}</h3>
@@ -51,9 +53,11 @@ document.addEventListener("DOMContentLoaded", function () {
       <h4>Steps</h4>
       <ol id='steps-list'></ol>
       <button type="button" class="btn btn-info" id="edit-button" data-id='${recipe._id}'>Edit</button>
-      <button type="button" class="btn btn-info" id="delete-button">Delete</button>
+      <button type="button" class="btn btn-danger" id="delete-button" data-id='${recipe._id}'>Delete</button>
       </div>
       `;
+
+    // iterate through steps array and spit out ordered list items
     let stepsList = document.querySelector("#steps-list");
     steps.forEach((step) => {
       let listItem = document.createElement("li");
@@ -61,6 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
       stepsList.appendChild(listItem);
     });
 
+    // iterate through ingredients and spit out unordered list items
     let ingredientsList = document.querySelector("#ingredients-list");
     ingredients.forEach((ingredient) => {
       let listItem = document.createElement("li");
@@ -78,6 +83,17 @@ document.addEventListener("DOMContentLoaded", function () {
       $("#searchModal").modal("hide");
       $("#editModal").modal("show");
       document.querySelector("#edit-form").setAttribute("action", "/recipes");
+    });
+
+    // delete recipe and redirect to /all_recipes
+    deleter.addEventListener("click", (e) => {
+      e.preventDefault();
+      fetch(`http://localhost:3000/recipes/${e.target.dataset.id}`, {
+        method: "DELETE",
+      }).then((res) => {
+        console.log(res);
+        $("#modal-edit").modal("close");
+      });
     });
   }
 
@@ -175,5 +191,11 @@ document.addEventListener("DOMContentLoaded", function () {
   closeAddModal.addEventListener("click", (e) => {
     e.preventDefault();
     $("#addModal").modal("hide");
+  });
+
+  // close edit recipe modal
+  closeEditModal.addEventListener("click", (e) => {
+    e.preventDefault();
+    $("#editModal").modal("hide");
   });
 });
