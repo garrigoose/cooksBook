@@ -74,6 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
       ingredientsList.appendChild(listItem);
     });
 
+    // initialize edit and delete button event listeners
     editter = document.querySelector("#edit-button");
     deleter = document.querySelector("#delete-button");
 
@@ -81,9 +82,10 @@ document.addEventListener("DOMContentLoaded", function () {
     editter.addEventListener("click", (e) => {
       e.preventDefault();
       console.log(recipe);
-      $("#searchModal").modal("hide");
       $("#editModal").modal("show");
-      document.querySelector("#edit-form").setAttribute("action", "/recipes");
+      document
+        .querySelector("#edit-form")
+        .setAttribute("action", `/recipes/${recipe._id}?_method=PUT`);
       document.getElementById("titleEdit").value = recipe.title;
       document.getElementById("descriptionEdit").value = recipe.description;
       document.getElementById("ingredientsEdit").value = recipe.ingredients;
@@ -98,8 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
       fetch(`http://localhost:3000/recipes/${e.target.dataset.id}`, {
         method: "DELETE",
       }).then((data) => {
-        console.log(data);
-        addRecipes(data);
+        fetchRecipes();
         $("#modal-edit").modal("close");
       });
     });
@@ -145,7 +146,6 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((response) => response.json())
       .then((data) => {
         showRecipe(data);
-        console.log(data);
       });
   });
 
@@ -191,7 +191,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log(err);
       });
 
-    $("#searchModal").modal("hide");
+    $("#addModal").modal("hide");
     fetchRecipes();
   });
 

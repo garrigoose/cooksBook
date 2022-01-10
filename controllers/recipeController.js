@@ -43,8 +43,7 @@ router.get("/:id", (req, res) => {
 // Recipe New Route (Create)
 router.post("/", (req, res) => {
   Recipe.create(req.body).then(() => {
-    console.log(req.body);
-    // res.redirect("/recipes/all_recipes");
+    console.log("new recipe created");
   });
 });
 
@@ -56,7 +55,6 @@ router.put("/:id", (req, res) => {
     { new: true },
     (err, updatedRecipe) => {
       console.log(updatedRecipe);
-      res.redirect(`/${req.params.id}`);
     }
   );
 });
