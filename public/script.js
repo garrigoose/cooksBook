@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const searcher = document.querySelector("#searcher");
   const adder = document.querySelector("#adder");
   const creater = document.querySelector("#create-recipe-button");
+  const submiter = document.querySelector("#submit-edit-modal");
   const closeAddModal = document.querySelector("#close-add-modal");
   const closeEditModal = document.querySelector("#close-edit-modal");
   let editter;
@@ -80,6 +81,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // open edit modal
     editter.addEventListener("click", (e) => {
+      // let steps;
+      // if (typeof recipe.steps === "string") {
+      //   steps = arrayify(recipe.steps);
+      // } else {
+      //   steps = recipe.steps;
+      // }
+      // let ingredients;
+      // if (typeof recipe.ingredients === "string") {
+      //   ingredients = arrayify(recipe.ingredients);
+      // } else {
+      // ingredients = recipe.ingredients;
+      // }
       e.preventDefault();
       console.log(recipe);
       $("#editModal").modal("show");
@@ -93,6 +106,53 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("imageEdit").value = recipe.image;
       document.getElementById("tagsEdit").value = recipe.tags;
     });
+
+    // submit recipe edit
+    document
+      .getElementById("submit-edit-button")
+      .setAttribute("data-id", `${recipe._id}?_method=PUT`);
+    document
+      .getElementById("submit-edit-button")
+      .addEventListener("click", (e) => {
+        e.preventDefault();
+        console.log("submiter clicked");
+
+        const edittedRecipe = {
+          title: document.getElementById("title").value,
+          description: document.getElementById("description").value,
+          ingredients: document
+            .getElementById("ingredients")
+            .value.split(/[.,]/g),
+          steps: document.getElementById("steps").value.split(/[.,]/g),
+          image: document.getElementById("image").value,
+          tags: document.getElementById("tags").value,
+        };
+
+        const options = {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(edittedRecipe),
+        };
+
+        fetch(`http://locahost:3000/recipes/${e.target.dataset.id}`, options)
+          .then((response) => {
+            if (!response.ok) {
+              throw Error(response.status);
+            }
+            (response) => response.json();
+          })
+          .then((edit) => {
+            console.log(edit);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+
+        $("#editModal").modal("hide");
+        fetchRecipes();
+      });
 
     // delete recipe and redirect to /all_recipes
     deleter.addEventListener("click", (e) => {
@@ -122,6 +182,11 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log(`<li>${el}</li>`);
       return `<li>${el}</li>`;
     });
+  }
+
+  // convert string blob to array of strings on , or .
+  function arrayify(str) {
+    return (arr = str.split(/[.,]/g));
   }
 
   // event listeners
@@ -158,13 +223,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // create new recipe
   creater.addEventListener("click", (e) => {
+    e.preventDefault();
     console.log("creater clicked");
 
     const newRecipe = {
       title: document.getElementById("title").value,
       description: document.getElementById("description").value,
-      ingredients: document.getElementById("ingredients").value,
-      steps: document.getElementById("steps").value,
+      ingredients: document.getElementById("ingredients").value.split(/[.,]/g),
+      steps: document.getElementById("steps").value.split(/[.,]/g),
       image: document.getElementById("image").value,
       tags: document.getElementById("tags").value,
     };
