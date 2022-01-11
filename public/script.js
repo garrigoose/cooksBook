@@ -114,29 +114,28 @@ document.addEventListener("DOMContentLoaded", function () {
     document
       .getElementById("submit-edit-button")
       .addEventListener("click", (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         console.log("submiter clicked");
-
         const edittedRecipe = {
           title: document.getElementById("title").value,
           description: document.getElementById("description").value,
           ingredients: document
-            .getElementById("ingredients")
+            .getElementById("ingredientsEdit")
             .value.split(/[.,]/g),
-          steps: document.getElementById("steps").value.split(/[.,]/g),
+          steps: document.getElementById("stepsEdit").value.split(/[.,]/g),
           image: document.getElementById("image").value,
           tags: document.getElementById("tags").value,
         };
 
         const options = {
-          method: "PUT",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(edittedRecipe),
         };
 
-        fetch(`http://locahost:3000/recipes/${e.target.dataset.id}`, options)
+        fetch(`http://localhost:3000/recipes/${e.target.dataset.id}`, options)
           .then((response) => {
             if (!response.ok) {
               throw Error(response.status);

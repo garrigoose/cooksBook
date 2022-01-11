@@ -1,7 +1,7 @@
 // dependencies
 const express = require("express");
 const app = express();
-const recipeController = require("./controllers/recipeController");
+const recipeController = require("./controllers/userController");
 const cors = require("cors");
 const { render } = require("express/lib/response");
 const Logger = require("nodemon/lib/utils/log");
