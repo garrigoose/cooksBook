@@ -37,13 +37,13 @@
     </nav>
 
     <div class="container" id='recipes-container'>
-      <div class="row col-md-12 col-lg-12 gy-5 gx-20" id='recipes'">`
+      <div class="row col-md-12 col-lg-12 gy-5 gx-20" id='recipes'>`
       </div>
     </div>
 
   <div class="container modals">
 
-      <div id="addModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="false">
+    <div id="addModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="false">
 
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -93,60 +93,88 @@
         </div>
       </div>
       </div>
-      </div>
+    </div>
 
-      <div id="editModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="false">
+    <div id="editModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="false">
 
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Edit Recipe</h5>
-              <button type="button" class="close btn-info" id='close-edit-modal' data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-          </div>
-          <div class="modal-body">
-  
-            <form action="/recipes" method="POST" id="edit-form">
-              <div class="mb-3">
-                <label class="form-label" for="title" for="steps">Title</label>
-                <input class='form-control'type="text" name="title" id="titleEdit">
-              </div>
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Edit Recipe</h5>
+            <button type="button" class="close btn-info" id='close-edit-modal' data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+        </div>
+        <div class="modal-body">
+
+          <form action="/recipes" method="POST" id="edit-form">
+            <div class="mb-3">
+              <label class="form-label" for="title" for="steps">Title</label>
+              <input class='form-control'type="text" name="title" id="titleEdit">
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="description">Description</label>
+              <textarea class='form-control' type="text" name="description" id="descriptionEdit"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="ingredients">Ingredients</label>
+              <textarea class='form-control' type="text" name="ingredients" id="ingredientsEdit"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="steps">Steps</label>
+              <textarea class='form-control' type="text" name="steps" id="stepsEdit"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="image">Image</label>
+              <input class='form-control' type="text" name="image" id="imageEdit">
+            </div>
+
+            <div class="form-group">
+            <label class="form-label" for="tags">Tags</label>
+            <input class='form-control' type="text" name="tags" id="tagsEdit">
+            </div>
               
-              <div class="form-group">
-                <label class="form-label" for="description">Description</label>
-                <textarea class='form-control' type="text" name="description" id="descriptionEdit"></textarea>
-              </div>
-  
-              <div class="form-group">
-                <label class="form-label" for="ingredients">Ingredients</label>
-                <textarea class='form-control' type="text" name="ingredients" id="ingredientsEdit"></textarea>
-              </div>
-  
-              <div class="form-group">
-                <label class="form-label" for="steps">Steps</label>
-                <textarea class='form-control' type="text" name="steps" id="stepsEdit"></textarea>
-              </div>
-  
-              <div class="form-group">
-                <label class="form-label" for="image">Image</label>
-                <input class='form-control' type="text" name="image" id="imageEdit">
-              </div>
-  
-              <div class="form-group">
-              <label class="form-label" for="tags">Tags</label>
-              <input class='form-control' type="text" name="tags" id="tagsEdit">
-              </div>
-                
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-info" id='submit-edit-button'>Submit</button>
-              </div>
-            </form>
-  
-          </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-info" id='submit-edit-button'>Submit</button>
+            </div>
+          </form>
+
         </div>
-        </div>
+      </div>
+      </div>
+    </div>
     
-  </div>
+    <div id="searchModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="false">
+
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Search For A Recipe</h5>
+            <button type="button" class="close btn-info" id='close-search-modal' data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+        </div>
+        <div class="modal-body">
+
+          <form action="/recipes" method="GET" id="search-form">
+            
+            <div class="form-group">
+              <label class="form-label" for="search"></label>
+              <input class='form-control' type="text" name="search" id="searchCriteria">
+            </div>
+              
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-info" id='search-recipe-button'>Search</button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+      </div>
+      </div>
+    </div>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>

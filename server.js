@@ -1,7 +1,9 @@
 // dependencies
 const express = require("express");
 const app = express();
-const recipeController = require("./controllers/userController");
+const recipeController = require("./controllers/recipeController");
+// const userController = require("./controllers/userController");
+
 const cors = require("cors");
 const { render } = require("express/lib/response");
 const Logger = require("nodemon/lib/utils/log");
@@ -14,6 +16,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
 app.use(cors());
 app.use("/recipes", recipeController);
+// app.use("/users", userController);
+
 app.get("/", (req, res) => {
   console.log("test");
   res.render("index.ejs");

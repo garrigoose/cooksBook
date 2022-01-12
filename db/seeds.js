@@ -1,7 +1,7 @@
-const mongoose = require('./connection')
-const Recipe = require('../models/recipeSchema')
-const recipeSeeds = require('./seeds.json');
-const router = require('../controllers/recipeController');
+const mongoose = require("./connection");
+const Recipe = require("../models/recipeSchema");
+const recipeSeeds = require("./seeds.json");
+const router = require("../controllers/userController");
 
 // Recipe.deleteMany({})
 // .then(()=>{
@@ -14,8 +14,8 @@ const router = require('../controllers/recipeController');
 // })
 
 Recipe.create(recipeSeeds, (err, data) => {
-    if(err) console.log(err.message);
-    console.log('added provided item data')
-})
+  if (err) console.log(err.message);
+  console.log("added provided item data");
+});
 
-module.exports = router
+module.exports = router;
