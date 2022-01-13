@@ -1,6 +1,8 @@
 // dependencies
 const express = require("express");
 const app = express();
+
+app.set("port", process.env.PORT || 3000);
 const recipeController = require("./controllers/recipeController");
 // const userController = require("./controllers/userController");
 
@@ -23,4 +25,6 @@ app.get("/", (req, res) => {
   res.render("index.ejs");
 });
 
-app.listen(3000, () => console.log(`We're making snacks on port 3000`));
+app.listen(app.get("port"), () =>
+  console.log(`We're making snacks on port ${app.get("port")}`)
+);
