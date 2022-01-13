@@ -8,8 +8,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const closeAddModal = document.querySelector("#close-add-modal");
   const closeEditModal = document.querySelector("#close-edit-modal");
   const closeSearchModal = document.querySelector("#close-search-modal");
+  const submitSearch = document.querySelector("#search-recipe-button");
   let editter;
-  const editForm = document.querySelector("#edit-form");
 
   // functions
 
@@ -277,6 +277,22 @@ document.addEventListener("DOMContentLoaded", function () {
   searcher.addEventListener("click", (e) => {
     e.preventDefault();
     $("#searchModal").modal("show");
+  });
+
+  // submit search
+  submitSearch.addEventListener("click", (e) => {
+    e.preventDefault();
+    let criteria =
+      e.target.parentNode.previousSibling.previousSibling.children[1].value;
+    console.log(criteria);
+    fetch(`recipes/search=${criteria}`)
+      .then((response) => response.json())
+      .then((data) => {
+        addRecipes(data);
+        console.log(data);
+        console.log("recipes loaded");
+      })
+      .catch((error) => console.log(error));
   });
 
   closeSearchModal.addEventListener("click", (e) => {

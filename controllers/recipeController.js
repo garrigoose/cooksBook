@@ -26,11 +26,13 @@ router.get("/all_recipes", cors(), (req, res, next) => {
 });
 
 // Recipe Search Route
-// router.get("/:tag", (req, res) => {
-//   Recipe.find({ tags: req.params.tag }).then((recipes) => {
-//     res.json(recipes);
-//   });
-// });
+router.get("/search=:criteria", (req, res) => {
+  Recipe.find({
+    title: { $in: req.params.criteria },
+  }).then((recipes) => {
+    res.json(recipes);
+  });
+});
 
 // Recipe Show Route
 router.get("/:id", (req, res) => {
