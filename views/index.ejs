@@ -37,7 +37,7 @@
     </nav>
 
     <div class="container" id='recipes-container'>
-      <div class="row col-md-12 col-lg-12 gy-5 gx-20" id='recipes'>`
+      <div class="row justify-content-around col-md-12 col-lg-12 g-5 pt-4" id='recipes'>`
       </div>
     </div>
 
@@ -106,7 +106,10 @@
         </div>
         <div class="modal-body">
 
-          <form action="/recipes" method="POST" id="edit-form">
+          <form action="/recipes" 
+           method="POST" 
+          
+          id="edit-form">
             <div class="mb-3">
               <label class="form-label" for="title" for="steps">Title</label>
               <input class='form-control'type="text" name="title" id="titleEdit">

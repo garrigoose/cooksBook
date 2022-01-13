@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const closeEditModal = document.querySelector("#close-edit-modal");
   const closeSearchModal = document.querySelector("#close-search-modal");
   let editter;
+  const editForm = document.querySelector("#edit-form");
 
   // functions
 
@@ -22,18 +23,18 @@ document.addEventListener("DOMContentLoaded", function () {
       let innerDiv = document.createElement("div");
       innerDiv.setAttribute("class", "card recipe-card col-md-4 col-lg-3 w-20");
       innerDiv.setAttribute("data-id", `${recipe._id}`);
+      innerDiv.setAttribute("id", "go-to-recipe-link");
       let goToRecipeButton = document.createElement("button");
       goToRecipeButton.setAttribute("type", "button");
       goToRecipeButton.setAttribute("class", "btn btn-info float-bottom mb-2");
       goToRecipeButton.setAttribute("data-id", `${recipe._id}`);
-      goToRecipeButton.setAttribute("id", "go-to-recipe-link");
+      goToRecipeButton.setAttribute("id", "go-to-recipe");
       goToRecipeButton.innerText = "Go To Recipe";
       // goToRecipeButton.innerHTML = `<button type="button" class="btn btn-info float-bottom" data-id="${recipe._id}" id="go-to-recipe-link">Go To Recipe</button>`;
+      // <a href="/${recipe._id}">
+      // </a>
       innerDiv.innerHTML = `
-        <a href="/${recipe._id}">
-        <img class="card-img-top mt-2" src="${recipe.image}" alt="Card image cap" id="${recipe._id}" data-id="${recipe._id}" style="height: 200px; object-fit: cover;">
-        </a>
-
+        <img class="card-img-top mt-2" src="${recipe.image}" alt="Card image cap" id="go-to-recipe" data-id="${recipe._id}" style="height: 200px; object-fit: cover;">
         <div class="card-body">
         <h5 class="card-title">'${recipe.title}'</h5>
         <p class="card-text recipe-text">'${recipe.description}'</p>
@@ -48,7 +49,18 @@ document.addEventListener("DOMContentLoaded", function () {
         e.preventDefault();
         let id = e.target.dataset.id;
         recipes.innerText = "";
-        fetch(`http://localhost:3000/recipes/${id}`)
+        fetch(`/recipes/${id}`)
+          .then((response) => response.json())
+          .then((data) => {
+            showRecipe(data);
+          })
+          .catch((error) => console.log(error));
+      });
+      document.querySelector("#go-to-recipe").addEventListener("click", (e) => {
+        e.preventDefault();
+        let id = e.target.dataset.id;
+        recipes.innerText = "";
+        fetch(`/recipes/${id}`)
           .then((response) => response.json())
           .then((data) => {
             showRecipe(data);
@@ -65,9 +77,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // set innerHTML of div.recipe to that of parsed json
     recipes.innerHTML = `
-      <div class='card w-80'>
+      <div class='card'>
       <h3 class='card-title'>${recipe.title}</h3>
-      <img src="${recipe.image}" style="width: 80%" alt="Card image cap">
+      <img src="${recipe.image}" style="width: 90%" alt="Card image cap">
       <h4>Ingredients</h4>
       <ul id='ingredients-list'></ul>
       <h4>Steps</h4>
@@ -117,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document
       .getElementById("submit-edit-button")
       .addEventListener("click", (e) => {
-        // e.preventDefault();
+        e.preventDefault();
         console.log("submiter clicked");
         const edittedRecipe = {
           title: document.getElementById("titleEdit").value,
@@ -140,7 +152,7 @@ document.addEventListener("DOMContentLoaded", function () {
           body: JSON.stringify(edittedRecipe),
         };
 
-        fetch(`http://localhost:3000/recipes/${e.target.dataset.id}`, options)
+        fetch(`/recipes/${e.target.dataset.id}`, options)
           .then((response) => {
             if (!response.ok) {
               throw Error(response.status);
@@ -161,7 +173,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // delete recipe and redirect to /all_recipes
     deleter.addEventListener("click", (e) => {
       // e.preventDefault();
-      fetch(`http://localhost:3000/recipes/${e.target.dataset.id}`, {
+      fetch(`/recipes/${e.target.dataset.id}`, {
         method: "DELETE",
       })
         .then((data) => {
@@ -174,7 +186,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // fetch recipes
   function fetchRecipes() {
-    fetch("http://localhost:3000/recipes/all_recipes")
+    fetch("/recipes/all_recipes")
       .then((response) => response.json())
       .then((data) => {
         addRecipes(data);
@@ -193,7 +205,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // load index of all recipes
   loader.addEventListener("click", (e) => {
     e.preventDefault();
-    fetch("http://localhost:3000/recipes/all_recipes")
+    fetch("/recipes/all_recipes")
       .then((response) => response.json())
       .then((data) => {
         addRecipes(data);
@@ -231,7 +243,7 @@ document.addEventListener("DOMContentLoaded", function () {
       body: JSON.stringify(newRecipe),
     };
 
-    fetch("http://localhost:3000/recipes/", options)
+    fetch("/recipes/", options)
       .then((response) => {
         if (!response.ok) {
           throw Error(response.status);
@@ -239,7 +251,7 @@ document.addEventListener("DOMContentLoaded", function () {
         (response) => response.json();
       })
       .then((newRecipe) => {
-        console.log(newRecipe);
+        console.log(`new recipe created: `, newRecipe.title);
       })
       .catch((err) => {
         console.log(err);

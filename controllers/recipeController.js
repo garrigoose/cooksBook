@@ -25,8 +25,7 @@ router.get("/all_recipes", cors(), (req, res, next) => {
   });
 });
 
-// Recipe Index Route (Searched)
-// will need to take recipes names and add individual strings as tags to recipe (on create?)
+// Recipe Search Route
 // router.get("/:tag", (req, res) => {
 //   Recipe.find({ tags: req.params.tag }).then((recipes) => {
 //     res.json(recipes);
