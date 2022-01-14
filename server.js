@@ -4,7 +4,7 @@ const app = express();
 
 app.set("port", process.env.PORT || 3000);
 const recipeController = require("./controllers/recipeController");
-// const userController = require("./controllers/userController");
+const sessionController = require("./controllers/sessionController");
 
 const cors = require("cors");
 const { render } = require("express/lib/response");
@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
 app.use(cors());
 app.use("/recipes", recipeController);
-// app.use("/users", userController);
+app.use("/users", sessionController);
 
 app.get("/", (req, res) => {
   console.log("test");

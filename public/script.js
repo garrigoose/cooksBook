@@ -21,7 +21,10 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!recipe) return;
 
       let innerDiv = document.createElement("div");
-      innerDiv.setAttribute("class", "card recipe-card col-md-4 col-lg-3 w-20");
+      innerDiv.setAttribute(
+        "class",
+        "card recipe-card col-md-4 col-lg-3 col-xl-2 w-20"
+      );
       innerDiv.setAttribute("data-id", `${recipe._id}`);
       innerDiv.setAttribute("id", "go-to-recipe-link");
       let goToRecipeButton = document.createElement("button");
@@ -84,6 +87,8 @@ document.addEventListener("DOMContentLoaded", function () {
       <ul id='ingredients-list'></ul>
       <h4>Steps</h4>
       <ol id='steps-list'></ol>
+      <h4>Tags</h4>
+      <p>${recipe.tags}<p>
       <button type="button" class="btn btn-info" id="edit-button" data-id='${recipe._id}'>Edit</button>
       <button type="button" class="btn btn-danger" id="delete-button" data-id='${recipe._id}'>Delete</button>
       </div>
@@ -205,6 +210,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // load index of all recipes
   loader.addEventListener("click", (e) => {
     e.preventDefault();
+
     fetch("/recipes/all_recipes")
       .then((response) => response.json())
       .then((data) => {

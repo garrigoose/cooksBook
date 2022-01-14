@@ -4,20 +4,6 @@ const cors = require("cors");
 const Recipe = require("../models/recipeSchema");
 const recipeSeeds = require("../db/seeds.json");
 
-// Recipe.create(recipeSeeds, (err, data) => {
-//     if(err) console.log(err.message);
-//     console.log('added provided item data')
-// })
-
-// Recipe.collection.drop()
-
-// Recipe Home Route
-// router.get("/", (req, res) => {
-//   Recipe.find({}).then((recipes) => {
-//     res.json(recipes);
-//   });
-// });
-
 // Index Route - All
 router.get("/all_recipes", cors(), (req, res, next) => {
   Recipe.find({}).then((recipes) => {
