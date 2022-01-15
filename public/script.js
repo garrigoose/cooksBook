@@ -80,6 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function showRecipe(recipe) {
     let steps = recipe.steps;
     let ingredients = recipe.ingredients;
+    let tags = recipe.title.split(" ").concat(recipe.tags);
 
     // set innerHTML of div.recipe to that of parsed json
     recipes.innerHTML = `
@@ -91,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
       <h4>Steps</h4>
       <ol id='steps-list'></ol>
       <h4>Tags</h4>
-      <p>${recipe.tags}<p>
+      <li id='tags-list' style='list-style-type: none'></li>
       <button type="button" class="btn btn-info" id="edit-button" data-id='${recipe._id}'>Edit</button>
       <button type="button" class="btn btn-danger" id="delete-button" data-id='${recipe._id}'>Delete</button>
       </div>
@@ -100,9 +101,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // iterate through steps array and spit out ordered list items
     let stepsList = document.querySelector("#steps-list");
     steps.forEach((step) => {
-      let listItem = document.createElement("li");
-      listItem.innerText = step;
-      stepsList.appendChild(listItem);
+      if (step.length > 1) {
+        let listItem = document.createElement("li");
+        listItem.innerText = step;
+        stepsList.appendChild(listItem);
+      }
     });
 
     // iterate through ingredients and spit out unordered list items
@@ -111,6 +114,36 @@ document.addEventListener("DOMContentLoaded", function () {
       let listItem = document.createElement("li");
       listItem.innerText = ingredient;
       ingredientsList.appendChild(listItem);
+    });
+
+    // iterate through tags and spit out clickable chip list
+    let tagsList = document.querySelector("#tags-list");
+    tags.forEach((tag) => {
+      let listItem = document.createElement("button");
+      listItem.setAttribute("class", "button btn-primary btn btn-sm m-1");
+      listItem.setAttribute("id", Math.floor(Math.random() * 100000));
+      listItem.setAttribute("value", tag);
+      // console.log("value: " + tag.value);
+      // let tagId = document.querySelector(`#${tag}`);
+      // console.log(document.querySelector(`#${tag}`));
+      // tagId.addEventListener("click", (e) => {
+      // e.preventDefault();
+      // console.log(e.target.value);
+      //   let criteria =
+      //     e.target.parentNode.previousSibling.previousSibling.children[1].value;
+      //   // console.log(criteria);
+      //   fetch(`recipes/search=${criteria}`)
+      //     .then((response) => response.json())
+      //     .then((data) => {
+      //       addRecipes(data);
+      //       $("#searchModal").modal("hide");
+      //       console.log("recipes loaded");
+      //     })
+      //     .catch((error) => console.log(error));
+      // });
+
+      listItem.innerText = tag;
+      tagsList.appendChild(listItem);
     });
 
     // initialize edit and delete button event listeners
@@ -147,7 +180,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .value.split(/[.,]/g),
           steps: document.getElementById("stepsEdit").value.split(/[.,]/g),
           image: document.getElementById("imageEdit").value,
-          tags: document.getElementById("tagsEdit").value,
+          tags: document.getElementById("tagsEdit").value.split(/[.,]/g),
         };
 
         console.log(edittedRecipe);
@@ -241,7 +274,7 @@ document.addEventListener("DOMContentLoaded", function () {
       ingredients: document.getElementById("ingredients").value.split(/[.,]/g),
       steps: document.getElementById("steps").value.split(/[.,]/g),
       image: document.getElementById("image").value,
-      tags: document.getElementById("tags").value,
+      tags: document.getElementById("tags").value.split(/[.,]/g),
     };
 
     const options = {
@@ -352,9 +385,7 @@ document.addEventListener("DOMContentLoaded", function () {
           }
           (response) => response.json();
         })
-        .then((newUser) => {
-          // console.log(`new user created: ` + newUser.username);
-        })
+        .then((newUser) => {})
         .catch((error) => console.log(error));
     } else {
       alert("Passwords must match");
