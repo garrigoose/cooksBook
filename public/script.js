@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const closeEditModal = document.querySelector("#close-edit-modal");
   const closeSearchModal = document.querySelector("#close-search-modal");
   const closeRegisterModal = document.querySelector("#close-register-modal");
+  const closeLoginModal = document.querySelector("#close-login-modal");
   const submitSearch = document.querySelector("#search-recipe-button");
   const createUser = document.querySelector("#create-user-button");
   const loginUser = document.querySelector("#login-user-button");
@@ -326,36 +327,26 @@ document.addEventListener("DOMContentLoaded", function () {
     $("#login-modal").modal("show");
   });
 
-  // open login modal
+  // open register modal
   registerer.addEventListener("click", (e) => {
     e.preventDefault();
     $("#login-modal").modal("hide");
     $("#create-account-modal").modal("show");
   });
 
-  // submit search
-  submitSearch.addEventListener("click", (e) => {
+  // close register modal
+  closeRegisterModal.addEventListener("click", (e) => {
     e.preventDefault();
-    let criteria =
-      e.target.parentNode.previousSibling.previousSibling.children[1].value;
-    // console.log(criteria);
-    fetch(`recipes/search=${criteria}`)
-      .then((response) => response.json())
-      .then((data) => {
-        addRecipes(data);
-        $("#searchModal").modal("hide");
-        console.log("recipes loaded");
-      })
-      .catch((error) => console.log(error));
+    $("#create-account-modal").modal("hide");
   });
 
-  // close search modal
-  closeSearchModal.addEventListener("click", (e) => {
+  // close login modal
+  closeLoginModal.addEventListener("click", (e) => {
     e.preventDefault();
-    $("#searchModal").modal("hide");
+    $("#login-modal").modal("hide");
   });
 
-  // create new user
+  // register new user
   createUser.addEventListener("click", (e) => {
     e.preventDefault();
     let username = e.target.parentNode.parentNode.children[0].children[1].value;
@@ -421,9 +412,25 @@ document.addEventListener("DOMContentLoaded", function () {
       .catch((error) => console.log(error));
   });
 
-  // close register modal
-  closeRegisterModal.addEventListener("click", (e) => {
+  // submit search
+  submitSearch.addEventListener("click", (e) => {
     e.preventDefault();
-    $("#create-account-modal").modal("hide");
+    let criteria =
+      e.target.parentNode.previousSibling.previousSibling.children[1].value;
+    // console.log(criteria);
+    fetch(`recipes/search=${criteria}`)
+      .then((response) => response.json())
+      .then((data) => {
+        addRecipes(data);
+        $("#searchModal").modal("hide");
+        console.log("recipes loaded");
+      })
+      .catch((error) => console.log(error));
+  });
+
+  // close search modal
+  closeSearchModal.addEventListener("click", (e) => {
+    e.preventDefault();
+    $("#searchModal").modal("hide");
   });
 });
