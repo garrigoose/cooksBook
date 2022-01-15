@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const searcher = document.querySelector("#searcher");
   const adder = document.querySelector("#adder");
   const creater = document.querySelector("#create-recipe-button");
+  const loginer = document.querySelector("#login-button");
+  const registerer = document.querySelector("#open-register-modal");
   const closeAddModal = document.querySelector("#close-add-modal");
   const closeEditModal = document.querySelector("#close-edit-modal");
   const closeSearchModal = document.querySelector("#close-search-modal");
@@ -283,6 +285,19 @@ document.addEventListener("DOMContentLoaded", function () {
   searcher.addEventListener("click", (e) => {
     e.preventDefault();
     $("#searchModal").modal("show");
+  });
+
+  // open login modal
+  loginer.addEventListener("click", (e) => {
+    e.preventDefault();
+    $("#login-modal").modal("show");
+  });
+
+  // open login modal
+  registerer.addEventListener("click", (e) => {
+    e.preventDefault();
+    $("#login-modal").modal("hide");
+    $("#create-account-modal").modal("show");
   });
 
   // submit search

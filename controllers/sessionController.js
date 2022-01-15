@@ -1,10 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const cors = require("cors");
 const User = require("../models/userSchema");
 
+router.get("/", (req, res) => {
+  res.send("Session controller works");
+});
+
 // Index Route - All
-router.get("/all_users", cors(), (req, res, next) => {
+router.get("/all_users", (req, res, next) => {
   User.find({})
     .then((users) => res.json(users))
     .catch(next);
