@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/userSchema");
 const bcrypt = require("bcrypt");
+const req = require("express/lib/request");
 
 router.get("/", (req, res) => {
   res.send("Session controller works");
@@ -25,7 +26,6 @@ router.get("/:id", (req, res) => {
 router.post("/register", async (req, res, next) => {
   console.log("req.body: ", req.body);
   try {
-    // if (req.body.createPassword === req.body.verifyPassword) {
     const desiredUsername = req.body.username;
     const userExists = await User.findOne({ username: desiredUsername });
     if (userExists) {
@@ -42,16 +42,34 @@ router.post("/register", async (req, res, next) => {
       // req.session.loggedIn = true;
       console.log(hashedPassword);
     }
-    // } else {
-    //   // req.session.message = "Passwords must match";
-    //   res.redirect("../");
-    // }
   } catch (err) {
     next(err);
   }
-  // User.create(req.body)
-  //   .then(() => console.log("new user created"))
-  //   .catch(next);
+});
+
+// login route
+router.post("/login", async (req, res, next) => {
+  console.log(req.body);
+  try {
+    const userToLogin = await User.findOne({ username: req.body.username });
+    console.log(userToLogin);
+    if (userToLogin) {
+      const validPassword = bcrypt.compareSync(
+        req.body.password,
+        userToLogin.password
+      );
+      if (validPassword) {
+        // req.session.username = userToLogin.username
+        // req.session.loggedOn = true
+        console.log("Username and Password Valid");
+      }
+    } else {
+      // req.session.message = 'Invalid uername or password'
+      console.log("Username and Password NOT Valid");
+    }
+  } catch (err) {
+    next(err);
+  }
 });
 
 // User Edit Route

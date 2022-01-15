@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const closeRegisterModal = document.querySelector("#close-register-modal");
   const submitSearch = document.querySelector("#search-recipe-button");
   const createUser = document.querySelector("#create-user-button");
+  const loginUser = document.querySelector("#login-user-button");
 
   // functions
 
@@ -120,13 +121,11 @@ document.addEventListener("DOMContentLoaded", function () {
     let tagsList = document.querySelector("#tags-list");
     tags.forEach((tag) => {
       let listItem = document.createElement("button");
-      listItem.setAttribute("class", "button btn-primary btn btn-sm m-1");
-      listItem.setAttribute("id", Math.floor(Math.random() * 100000));
-      listItem.setAttribute("value", tag);
-      // console.log("value: " + tag.value);
-      // let tagId = document.querySelector(`#${tag}`);
-      // console.log(document.querySelector(`#${tag}`));
-      // tagId.addEventListener("click", (e) => {
+      listItem.setAttribute("class", "button btn-primary btn btn-sm m-1 tag");
+      listItem.setAttribute("id", tag);
+      // let tagId = document.querySelector(`.${tag}`);
+      // console.log(`${tag}`);
+      // document.querySelector(`.${tag}`).addEventListener("click", (e) => {
       // e.preventDefault();
       // console.log(e.target.value);
       //   let criteria =
@@ -390,6 +389,36 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       alert("Passwords must match");
     }
+  });
+
+  // login user
+  loginUser.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const userToLogin = {
+      username: e.target.parentNode.parentNode[0].value,
+      password: e.target.parentNode.parentNode[1].value,
+    };
+
+    // console.log(userToLogin);
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userToLogin),
+    };
+
+    fetch("/session/login", options)
+      .then((response) => {
+        if (!response.ok) {
+          throw Error(response.status);
+        }
+        (response) => response.json();
+      })
+      .then((newUser) => {})
+      .catch((error) => console.log(error));
   });
 
   // close register modal
