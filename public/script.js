@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const closeEditModal = document.querySelector("#close-edit-modal");
   const closeSearchModal = document.querySelector("#close-search-modal");
   const submitSearch = document.querySelector("#search-recipe-button");
+  const createUser = document.querySelector("#create-user-button");
   let editter;
 
   // functions
@@ -305,19 +306,58 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
     let criteria =
       e.target.parentNode.previousSibling.previousSibling.children[1].value;
-    console.log(criteria);
+    // console.log(criteria);
     fetch(`recipes/search=${criteria}`)
       .then((response) => response.json())
       .then((data) => {
         addRecipes(data);
-        console.log(data);
+        $("#searchModal").modal("hide");
         console.log("recipes loaded");
       })
       .catch((error) => console.log(error));
   });
 
+  // close search modal
   closeSearchModal.addEventListener("click", (e) => {
     e.preventDefault();
     $("#searchModal").modal("hide");
+  });
+
+  // create new user
+  createUser.addEventListener("click", (e) => {
+    e.preventDefault();
+    let username = e.target.parentNode.parentNode.children[0].children[1].value;
+    let password = e.target.parentNode.parentNode.children[1].children[1].value;
+    let verifyPassword =
+      e.target.parentNode.parentNode.children[2].children[1].value;
+
+    const newUser = {
+      username: e.target.parentNode.parentNode.children[0].children[1].value,
+      password: e.target.parentNode.parentNode.children[1].children[1].value,
+    };
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newUser),
+    };
+
+    // if (password === verifyPassword) {
+    fetch("/session/register", options)
+      .then((response) => {
+        if (!response.ok) {
+          throw Error(response.status);
+        }
+        (response) => response.json();
+      })
+      .then((newUser) => {
+        // console.log(`new user created: ` + newUser.username);
+      })
+      .catch((error) => console.log(error));
+    // } else {
+    //   alert("Passwords must match");
+    // }
   });
 });

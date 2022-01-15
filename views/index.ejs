@@ -18,14 +18,14 @@
 
     <nav class="navbar navbar-expand-md navbar-expand-lg navbar-light bg-light d-flex justify-content-end" id='nav-container'>
       <div class="container-fluid bg-light">
-        <a class="navbar-brand" href="#">cooksBook</a>
+        <a class="navbar-brand" href="#" onClick="window.location.reload();">cooksBook</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
             <div class="navbar-nav">
-              <a class="nav-link" href="#" aria-label="Toggle navigation" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">Home</a>
+              <a class="nav-link" href="#" aria-label="Toggle navigation" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" onClick="window.location.reload();">Home</a>
               <a class="nav-link" href="#" id="loader" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">All Recipes</a>
               <a class="nav-link" href="#" id="adder" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">New Recipe</a>
               <a class="nav-link" href="#" id="searcher" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">Search</a>
@@ -36,11 +36,13 @@
       </div>
     </nav>
 
+    <!-- content/recipes container -->
     <div class="container" id='recipes-container'>
       <div class="row justify-content-around col-md-12 col-lg-12 g-5 pt-4" id='recipes'>`
       </div>
     </div>
 
+    <!-- modals container -->
   <div class="container modals">
 
     <!-- new recipe modal -->
@@ -192,22 +194,22 @@
         </div>
         <div class="modal-body">
 
-          <form action="/users" method="POST" id="create-user-form">
+          <form action="/users" method="POST" id="login-user-form">
             
             <div class="form-group">
               <label class="form-label" for="username">Username</label>
-              <input class='form-control' type="text" name="username" id="create-username">
+              <input class='form-control' type="text" name="username" id="login-username">
             </div>
 
             <div class="form-group">
               <label class="form-label" for="password">Password</label>
-              <input class='form-control' type="password" name="password" id="create-password">
+              <input class='form-control' type="password" name="password" id="login-password">
             </div>
               
             <div class="modal-footer">
-              <button type="submit" class="btn btn-info" id='create-user-button'>Login</button>
+              <button type="submit" class="btn btn-info" id='login-user-button'>Login</button>
 
-              <button type="button" class="btn btn-light" id='open-register-modal'>Register New User</button>
+              <button type="submit" class="btn btn-light" id='open-register-modal'>Register New User</button>
             </div>
           </form>
 
@@ -236,16 +238,16 @@
 
             <div class="form-group">
               <label class="form-label" for="password">Password</label>
-              <input class='form-control' type="password" name="password" id="create-password">
+              <input class='form-control' type="password" name="create-password" id="create-password">
             </div>
 
             <div class="form-group">
               <label class="form-label" for="verify-password">Re-type Password</label>
-              <input class='form-control' type="password" name="verify-password" id="create-password-confirm">
+              <input class='form-control' type="password" name="verify-password" id="verify-password">
             </div>
               
             <div class="modal-footer">
-              <button type="submit" class="btn btn-info" id='create-user-button'>Register</button>
+              <button type="button" class="btn btn-info" id='create-user-button'>Register</button>
             </div>
           </form>
 

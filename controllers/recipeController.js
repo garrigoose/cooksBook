@@ -13,11 +13,19 @@ router.get("/all_recipes", cors(), (req, res, next) => {
 
 // Recipe Search Route
 router.get("/search=:criteria", (req, res) => {
+  console.log(req.params);
   Recipe.find({
-    title: { $in: req.params.criteria },
-  }).then((recipes) => {
-    res.json(recipes);
-  });
+    // title: new RegExp(req.params.criteria, "i"),
+    $or: [
+      { title: new RegExp(req.params.criteria, "i") },
+      { tags: new RegExp(req.params.criteria, "i") },
+    ],
+  })
+    .collation({ locale: "en_US" })
+    .then((recipes) => {
+      console.log(recipes);
+      res.json(recipes);
+    });
 });
 
 // Recipe Show Route
