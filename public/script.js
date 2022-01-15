@@ -10,9 +10,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const closeAddModal = document.querySelector("#close-add-modal");
   const closeEditModal = document.querySelector("#close-edit-modal");
   const closeSearchModal = document.querySelector("#close-search-modal");
+  const closeRegisterModal = document.querySelector("#close-register-modal");
   const submitSearch = document.querySelector("#search-recipe-button");
   const createUser = document.querySelector("#create-user-button");
-  let editter;
 
   // functions
 
@@ -344,20 +344,26 @@ document.addEventListener("DOMContentLoaded", function () {
       body: JSON.stringify(newUser),
     };
 
-    // if (password === verifyPassword) {
-    fetch("/session/register", options)
-      .then((response) => {
-        if (!response.ok) {
-          throw Error(response.status);
-        }
-        (response) => response.json();
-      })
-      .then((newUser) => {
-        // console.log(`new user created: ` + newUser.username);
-      })
-      .catch((error) => console.log(error));
-    // } else {
-    //   alert("Passwords must match");
-    // }
+    if (password === verifyPassword) {
+      fetch("/session/register", options)
+        .then((response) => {
+          if (!response.ok) {
+            throw Error(response.status);
+          }
+          (response) => response.json();
+        })
+        .then((newUser) => {
+          // console.log(`new user created: ` + newUser.username);
+        })
+        .catch((error) => console.log(error));
+    } else {
+      alert("Passwords must match");
+    }
+  });
+
+  // close register modal
+  closeRegisterModal.addEventListener("click", (e) => {
+    e.preventDefault();
+    $("#create-account-modal").modal("hide");
   });
 });

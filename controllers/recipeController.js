@@ -19,6 +19,9 @@ router.get("/search=:criteria", (req, res) => {
     $or: [
       { title: new RegExp(req.params.criteria, "i") },
       { tags: new RegExp(req.params.criteria, "i") },
+      { description: new RegExp(req.params.criteria, "i") },
+      { steps: new RegExp(req.params.criteria, "i") },
+      { ingredients: new RegExp(req.params.criteria, "i") },
     ],
   })
     .collation({ locale: "en_US" })
@@ -39,7 +42,7 @@ router.get("/:id", (req, res) => {
 router.post("/", (req, res, next) => {
   Recipe.create(req.body)
     .then(() => {
-      console.log("new recipe created");
+      console.log("new recipe created 98989898");
     })
     .catch(next);
 });
