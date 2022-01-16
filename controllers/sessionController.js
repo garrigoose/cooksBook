@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/userSchema");
 const bcrypt = require("bcrypt");
-const req = require("express/lib/request");
 
 router.get("/", (req, res) => {
   res.send("Session controller works");
@@ -35,12 +34,15 @@ router.post("/register", async (req, res, next) => {
       const salt = bcrypt.genSaltSync(10);
       const hashedPassword = bcrypt.hashSync(req.body.password, salt);
       req.body.password = hashedPassword;
-      const createdUser = await User.create(req.body);
+      const createdUser = await User.create(req.body, (err, newUser) => {
+        console.log(newUser);
+        req.session.username = newUser.username;
+      });
+      console.log(req.session.username);
       // req.session.username = createdUser.username;
       console.log(createdUser);
       console.log(req.session);
       // req.session.loggedIn = true;
-      console.log(hashedPassword);
     }
   } catch (err) {
     next(err);
@@ -59,9 +61,9 @@ router.post("/login", async (req, res, next) => {
         userToLogin.password
       );
       if (validPassword) {
-        // req.session.username = userToLogin.username
-        // req.session.loggedOn = true
-        console.log("Username and Password Valid");
+        req.session.username = userToLogin.username;
+        req.session.loggedOn = true;
+        res.redirect("/recipes");
       }
     } else {
       // req.session.message = 'Invalid uername or password'

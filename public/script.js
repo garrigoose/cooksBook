@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // add recipe cards to the page
   function addRecipes(recipeData) {
+    document.querySelector("#intro-section").style.display = "none";
     // recipes.innerHTML = "";
     recipes.innerText = "";
     recipeData.forEach((recipe) => {
@@ -118,12 +119,16 @@ document.addEventListener("DOMContentLoaded", function () {
       ingredientsList.appendChild(listItem);
     });
 
-    // iterate through tags and spit out clickable chip list
+    // iterate through tags and spit out clickable list
     let tagsList = document.querySelector("#tags-list");
     tags.forEach((tag) => {
       let listItem = document.createElement("button");
       listItem.setAttribute("class", "button btn-primary btn btn-sm m-1 tag");
       listItem.setAttribute("id", tag);
+      function clicker() {
+        console.log("click");
+      }
+      listItem.setAttribute("onclick", "console.log('click')");
       // let tagId = document.querySelector(`.${tag}`);
       // console.log(`${tag}`);
       // document.querySelector(`.${tag}`).addEventListener("click", (e) => {
@@ -374,6 +379,7 @@ document.addEventListener("DOMContentLoaded", function () {
             throw Error(response.status);
           }
           (response) => response.json();
+          $("#create-account-modal").modal("hide");
         })
         .then((newUser) => {})
         .catch((error) => console.log(error));
@@ -390,8 +396,6 @@ document.addEventListener("DOMContentLoaded", function () {
       username: e.target.parentNode.parentNode[0].value,
       password: e.target.parentNode.parentNode[1].value,
     };
-
-    // console.log(userToLogin);
 
     const options = {
       method: "POST",

@@ -18,7 +18,7 @@
   <body style="background-image: url('https://images.pexels.com/photos/616484/pexels-photo-616484.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'); background-size: cover; background-repeat: no-repeat; 
   background-attachment: fixed;">
 
-    <nav class="navbar navbar-expand-md navbar-expand-lg navbar-light bg-light d-flex justify-content-end" id='nav-container'>
+    <nav class="navbar navbar-expand-md navbar-expand-lg navbar-light bg-light" id='nav-container'>
       <div class="container-fluid bg-light">
         <a class="navbar-brand" href="#" onClick="window.location.reload();">cooksBook</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,7 +26,7 @@
         </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-            <div class="navbar-nav">
+            <div class="navbar-nav ms-auto">
               <a class="nav-link" href="#" aria-label="Toggle navigation" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" onClick="window.location.reload();">Home</a>
               <a class="nav-link" href="#" id="loader" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">All Recipes</a>
               <a class="nav-link" href="#" id="adder" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">New Recipe</a>
@@ -40,7 +40,23 @@
 
     <!-- content/recipes container -->
     <div class="container" id='recipes-container'>
-      <div class="row justify-content-around col-md-12 col-lg-12 g-5 pt-4" id='recipes'>`
+      <div class="row justify-content-around col-md-12 col-lg-12 g-5 pt-4" id='recipes'>
+      </div>
+      <section class="bg-transparent text-dark p-5 p-lg-0 pt-lg-5 text-center text-sm-start" id="intro-section">
+        <div class="container">
+          <div class="d-sm-flex align-items-center justify-content-between">
+            <h1>Save Your Family's Recipes</h1>
+            <p class="lead my-4">
+              Save all of your favorite meals in one place. Digitize grandma's kitchen.
+            </p>
+          </div>
+        </div>
+        <img
+          class="img-fluid w-50 d-none d-sm-block"
+          src="../images/Daco_4488202.png"
+          alt="kithen icon"
+        />
+      </section>
       </div>
     </div>
 
