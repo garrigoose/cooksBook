@@ -51,7 +51,6 @@ router.post("/register", async (req, res, next) => {
 
 // login route
 router.post("/login", async (req, res, next) => {
-  console.log(req.body);
   try {
     const userToLogin = await User.findOne({ username: req.body.username });
     console.log(userToLogin);
@@ -66,8 +65,7 @@ router.post("/login", async (req, res, next) => {
         res.redirect("/recipes");
       }
     } else {
-      // req.session.message = 'Invalid uername or password'
-      console.log("Username and Password NOT Valid");
+      req.session.message = "Invalid uername or password";
     }
   } catch (err) {
     next(err);
