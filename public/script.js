@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   // constants
-  const homeButtons = document.querySelectorAll(".home-button");
+  const homeButtons = document.querySelector("#home-button");
   const recipes = document.querySelector("#recipes");
   const loader = document.querySelector("#loader");
   const searcher = document.querySelector("#searcher");
@@ -383,7 +383,7 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     if (password === verifyPassword) {
-      fetch("/session/register", options)
+      fetch("session/register", options)
         .then((response) => {
           if (!response.ok) {
             throw Error(response.status);
@@ -434,10 +434,6 @@ document.addEventListener("DOMContentLoaded", function () {
       .catch((err) => {
         console.log(err);
       });
-
-    if (userToLogin.length > 0) {
-      console.log(username);
-    }
   });
 
   // logout user
@@ -448,6 +444,7 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log("logged out");
       $("#logout-button").addClass("invisible");
       $("#login-button").show();
+      document.querySelector("#welcome-div").innerHTML = "";
     });
   });
 
@@ -471,5 +468,11 @@ document.addEventListener("DOMContentLoaded", function () {
   closeSearchModal.addEventListener("click", (e) => {
     e.preventDefault();
     $("#searchModal").modal("hide");
+  });
+
+  // home buttons
+  homeButtons.addEventListener("click", (e) => {
+    document.querySelector("#intro-section").style.display = "block";
+    document.querySelector("#recipes").innerHTML = "";
   });
 });

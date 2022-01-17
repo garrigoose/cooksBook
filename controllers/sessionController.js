@@ -3,6 +3,13 @@ const router = express.Router();
 const User = require("../models/userSchema");
 const bcrypt = require("bcrypt");
 
+// index
+router.get("/all_users", (req, res, next) => {
+  User.find({}, (err, users) => {
+    res.json(users);
+  });
+});
+
 // User New Route (Create)
 router.post("/register", async (req, res, next) => {
   console.log("req.body: ", req.body);
@@ -14,7 +21,6 @@ router.post("/register", async (req, res, next) => {
         console.log("username exists");
         req.session.message = "User name is already taken";
       } else {
-        console.log(req.body);
         const salt = bcrypt.genSaltSync(10);
         const hashedPassword = bcrypt.hashSync(req.body.password, salt);
         req.body.password = hashedPassword;
@@ -28,7 +34,9 @@ router.post("/register", async (req, res, next) => {
       }
     } else {
       req.session.message = "Passwords must match";
-      res.redirect("/session/register");
+      res.json({
+        message: "Passwords do not match",
+      });
     }
   } catch (err) {
     next(err);
