@@ -3,17 +3,6 @@ const router = express.Router();
 const User = require("../models/userSchema");
 const bcrypt = require("bcrypt");
 
-router.get("/", (req, res) => {
-  res.send("Session controller works");
-});
-
-// Index Route - All
-router.get("/all_users", (req, res, next) => {
-  User.find({})
-    .then((users) => res.json(users))
-    .catch(next);
-});
-
 // User New Route (Create)
 router.post("/register", async (req, res, next) => {
   console.log("req.body: ", req.body);
@@ -23,21 +12,17 @@ router.post("/register", async (req, res, next) => {
       const userExists = await User.findOne({ username: desiredUsername });
       if (userExists) {
         console.log("username exists");
-        // req.session.message = "User name is already taken";
+        req.session.message = "User name is already taken";
       } else {
         console.log(req.body);
         const salt = bcrypt.genSaltSync(10);
         const hashedPassword = bcrypt.hashSync(req.body.password, salt);
         req.body.password = hashedPassword;
         const createdUser = await User.create(req.body, (err, newUser) => {
-          // console.log(newUser);
           req.session.username = newUser.username;
         });
-        // console.log(req.session.username);
         req.session.username = createdUser.username;
-        // console.log(createdUser);
         res.json(createdUser);
-        // console.log(req.session);
         console.log("new user created:  " + req.session.username);
         req.session.loggedIn = true;
       }
@@ -73,7 +58,6 @@ router.post("/login", async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-  // res.redirect("/recipes");
 });
 
 // logout route

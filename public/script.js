@@ -43,8 +43,8 @@ document.addEventListener("DOMContentLoaded", function () {
       innerDiv.innerHTML = `
         <img class="card-img-top mt-2" src="${recipe.image}" alt="Card image cap" id="go-to-recipe" data-id="${recipe._id}" style="height: 200px; object-fit: cover;">
         <div class="card-body">
-        <h5 class="card-title">'${recipe.title}'</h5>
-        <p class="card-text recipe-text">'${recipe.description}'</p>
+        <h5 class="card-title">${recipe.title}</h5>
+        <p class="card-text recipe-text">${recipe.description}</p>
 
         <a href="/${recipe._id}">
 
@@ -279,7 +279,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // create new recipe
   creater.addEventListener("click", (e) => {
     e.preventDefault();
-    console.log("creater clicked");
 
     const newRecipe = {
       title: document.getElementById("title").value,

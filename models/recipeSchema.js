@@ -2,7 +2,7 @@ const mongoose = require("../db/connection.js");
 
 const recipeSchema = new mongoose.Schema({
   title: { type: String, required: true },
-  description: { type: String },
+  description: { type: String, maxLength: 150 },
   ingredients: [{ type: String, required: true }],
   ingredientSubset: [{ type: String }],
   steps: [{ type: String }],
