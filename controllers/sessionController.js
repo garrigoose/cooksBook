@@ -53,6 +53,7 @@ router.post("/login", async (req, res, next) => {
         res.json(userToLogin);
       }
     } else {
+      console.log("invalid username or password");
       req.session.message = "Invalid uername or password";
     }
   } catch (err) {

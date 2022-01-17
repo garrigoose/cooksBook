@@ -19,6 +19,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const logoutUser = document.querySelector("#logout-button");
   const welcomeDiv = document.querySelector("#welcome-message");
 
+  $();
+
   // functions
 
   // add recipe cards to the page
@@ -41,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
       goToRecipeButton.setAttribute("data-id", `${recipe._id}`);
       goToRecipeButton.setAttribute("id", "go-to-recipe");
       goToRecipeButton.innerText = "Go To Recipe";
+      if (!recipe.image) return;
       innerDiv.innerHTML = `
         <img class="card-img-top mt-2" src="${recipe.image}" alt="Card image cap" id="go-to-recipe" data-id="${recipe._id}" style="height: 200px; object-fit: cover;">
         <div class="card-body">
