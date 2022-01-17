@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   // constants
+  const homeButtons = document.querySelectorAll(".home-button");
   const recipes = document.querySelector("#recipes");
   const loader = document.querySelector("#loader");
   const searcher = document.querySelector("#searcher");
@@ -30,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
       let innerDiv = document.createElement("div");
       innerDiv.setAttribute(
         "class",
-        "card recipe-card col-md-4 col-lg-3 col-xl-2 w-20"
+        "card recipe-card col-md-4 col-lg-3 col-xl-2 "
       );
       innerDiv.setAttribute("data-id", `${recipe._id}`);
       innerDiv.setAttribute("id", "go-to-recipe-link");
@@ -44,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <img class="card-img-top mt-2" src="${recipe.image}" alt="Card image cap" id="go-to-recipe" data-id="${recipe._id}" style="height: 200px; object-fit: cover;">
         <div class="card-body">
         <h5 class="card-title">${recipe.title}</h5>
-        <p class="card-text recipe-text">${recipe.description}</p>
+        <p class="card-text m-1"><small>${recipe.description}</small></p>
 
         <a href="/${recipe._id}">
 
@@ -424,9 +425,7 @@ document.addEventListener("DOMContentLoaded", function () {
           $("#logout-button").removeClass("invisible");
           const helloMessage = document.createElement("p");
           helloMessage.innerText = `Hello ${userToLogin.username}`;
-          document
-            .querySelector("#navbarSupportedContent")
-            .appendChild(helloMessage);
+          document.querySelector("#welcome-div").appendChild(helloMessage);
         }
       })
       .catch((err) => {
@@ -441,8 +440,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // logout user
   logoutUser.addEventListener("click", (e) => {
     e.preventDefault();
-    // if (loggedIn) {
-    // }
+    console.log("logout clicked");
     fetch("/session/logout").then(() => {
       console.log("logged out");
       $("#logout-button").addClass("invisible");
@@ -461,6 +459,7 @@ document.addEventListener("DOMContentLoaded", function () {
         addRecipes(data);
         $("#searchModal").modal("hide");
         console.log("recipes loaded");
+        document.querySelector("#welcome-div").innerHTML = "";
       })
       .catch((error) => console.log(error));
   });
