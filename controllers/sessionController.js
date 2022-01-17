@@ -14,30 +14,32 @@ router.get("/all_users", (req, res, next) => {
 router.post("/register", async (req, res, next) => {
   console.log("req.body: ", req.body);
   try {
-    if (req.body.password === req.body.verifyPassword) {
-      const desiredUsername = req.body.username;
-      const userExists = await User.findOne({ username: desiredUsername });
-      if (userExists) {
-        console.log("username exists");
-        req.session.message = "User name is already taken";
-      } else {
-        const salt = bcrypt.genSaltSync(10);
-        const hashedPassword = bcrypt.hashSync(req.body.password, salt);
-        req.body.password = hashedPassword;
-        const createdUser = await User.create(req.body, (err, newUser) => {
-          req.session.username = newUser.username;
-        });
-        req.session.username = createdUser.username;
-        res.json(createdUser);
-        console.log("new user created:  " + req.session.username);
-        req.session.loggedIn = true;
-      }
+    // if (req.body.password === req.body.verifyPassword) {
+    const desiredUsername = req.body.username;
+    const userExists = await User.findOne({ username: desiredUsername });
+    if (userExists) {
+      console.log("username exists");
+      req.session.message = "User name is already taken";
     } else {
-      req.session.message = "Passwords must match";
-      res.json({
-        message: "Passwords do not match",
-      });
+      const salt = bcrypt.genSaltSync(10);
+      const hashedPassword = bcrypt.hashSync(req.body.password, salt);
+      req.body.password = hashedPassword;
+      const newUser = {
+        username: req.body.username,
+        password: req.body.password,
+      };
+      const createdUser = await User.create(newUser);
+      req.session.username = createdUser.username;
+      res.json({ user: createdUser });
+      console.log("new user created:  " + req.session.username);
+      req.session.loggedIn = true;
     }
+    // } else {
+    //   req.session.message = "Passwords must match";
+    //   res.json({
+    //     message: "Passwords do not match",
+    //   });
+    // }
   } catch (err) {
     next(err);
   }
