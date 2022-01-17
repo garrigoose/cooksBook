@@ -1,11 +1,17 @@
 const express = require("express");
 const router = express.Router();
-const cors = require("cors");
 const Recipe = require("../models/recipeSchema");
-const recipeSeeds = require("../db/seeds.json");
+
+const authRequired = (req, res, next) => {
+  if (req.session.loggedIn) {
+    next();
+  } else {
+    res.redirect("/session/login");
+  }
+};
 
 // Index Route - All
-router.get("/all_recipes", cors(), (req, res, next) => {
+router.get("/all_recipes", (req, res, next) => {
   Recipe.find({}).then((recipes) => {
     res.json(recipes);
   });
@@ -15,7 +21,6 @@ router.get("/all_recipes", cors(), (req, res, next) => {
 router.get("/search=:criteria", (req, res) => {
   console.log(req.params);
   Recipe.find({
-    // title: new RegExp(req.params.criteria, "i"),
     $or: [
       { title: new RegExp(req.params.criteria, "i") },
       { tags: new RegExp(req.params.criteria, "i") },
@@ -39,16 +44,16 @@ router.get("/:id", (req, res) => {
 });
 
 // Recipe New Route (Create)
-router.post("/", (req, res, next) => {
+router.post("/", authRequired, (req, res, next) => {
   Recipe.create(req.body)
-    .then(() => {
-      console.log("new recipe created 98989898");
+    .then((newRecipe) => {
+      res.json(newRecipe);
     })
     .catch(next);
 });
 
 // Recipe Edit Route
-router.put("/:id", (req, res) => {
+router.put("/:id", authRequired, (req, res) => {
   console.log("this is req.body: ");
   console.log(req.body);
   Recipe.findByIdAndUpdate(
@@ -62,7 +67,7 @@ router.put("/:id", (req, res) => {
 });
 
 // Recipe Delete Route
-router.delete("/:id", (req, res) => {
+router.delete("/:id", authRequired, (req, res) => {
   Recipe.findByIdAndRemove(req.params.id, (err, deletedRecipe) => {
     res.redirect("/all_recipes");
   });

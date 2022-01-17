@@ -15,13 +15,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const submitSearch = document.querySelector("#search-recipe-button");
   const createUser = document.querySelector("#create-user-button");
   const loginUser = document.querySelector("#login-user-button");
+  const logoutUser = document.querySelector("#logout-button");
+  const welcomeDiv = document.querySelector("#welcome-message");
 
   // functions
 
   // add recipe cards to the page
   function addRecipes(recipeData) {
     document.querySelector("#intro-section").style.display = "none";
-    // recipes.innerHTML = "";
     recipes.innerText = "";
     recipeData.forEach((recipe) => {
       if (!recipe) return;
@@ -39,9 +40,6 @@ document.addEventListener("DOMContentLoaded", function () {
       goToRecipeButton.setAttribute("data-id", `${recipe._id}`);
       goToRecipeButton.setAttribute("id", "go-to-recipe");
       goToRecipeButton.innerText = "Go To Recipe";
-      // goToRecipeButton.innerHTML = `<button type="button" class="btn btn-info float-bottom" data-id="${recipe._id}" id="go-to-recipe-link">Go To Recipe</button>`;
-      // <a href="/${recipe._id}">
-      // </a>
       innerDiv.innerHTML = `
         <img class="card-img-top mt-2" src="${recipe.image}" alt="Card image cap" id="go-to-recipe" data-id="${recipe._id}" style="height: 200px; object-fit: cover;">
         <div class="card-body">
@@ -125,15 +123,13 @@ document.addEventListener("DOMContentLoaded", function () {
       let listItem = document.createElement("button");
       listItem.setAttribute("class", "button btn-primary btn btn-sm m-1 tag");
       listItem.setAttribute("id", tag);
-      function clicker() {
-        console.log("click");
-      }
-      listItem.setAttribute("onclick", "console.log('click')");
-      // let tagId = document.querySelector(`.${tag}`);
-      // console.log(`${tag}`);
-      // document.querySelector(`.${tag}`).addEventListener("click", (e) => {
+      // listItem.setAttribute("onclick", "console.log('click')");
+      // console.log(listItem);
+      // let tagId = document.getElementById(tag);
+      // console.log(tagId);
+      // document.querySelector("#Potatoes").addEventListener("click", (e) => {
       // e.preventDefault();
-      // console.log(e.target.value);
+      // console.log(e);
       //   let criteria =
       //     e.target.parentNode.previousSibling.previousSibling.children[1].value;
       //   // console.log(criteria);
@@ -145,6 +141,16 @@ document.addEventListener("DOMContentLoaded", function () {
       //       console.log("recipes loaded");
       //     })
       //     .catch((error) => console.log(error));
+      // });
+
+      // tags.forEach((tag) => {
+      //   console.log(tag);
+      //   if (tag !== null) {
+      //     document.querySelector(tag).addEventListener("click", (e) => {
+      //       e.preventDefault();
+      //       console.log(e.target);
+      //     });
+      //   }
       // });
 
       listItem.innerText = tag;
@@ -249,9 +255,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // event listeners
 
   // load index of all recipes
-  loader.addEventListener("click", (e) => {
-    e.preventDefault();
-
+  function loadAllRecipes() {
     fetch("/recipes/all_recipes")
       .then((response) => response.json())
       .then((data) => {
@@ -259,6 +263,10 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("recipes loaded");
       })
       .catch((error) => console.log(error));
+  }
+  loader.addEventListener("click", (e) => {
+    e.preventDefault();
+    loadAllRecipes();
   });
 
   // open adder modal
@@ -296,10 +304,9 @@ document.addEventListener("DOMContentLoaded", function () {
           throw Error(response.status);
         }
         (response) => response.json();
-      })
-      .then((newRecipe) => {
         console.log(`new recipe created: `, newRecipe.title);
       })
+      .then((newRecipe) => {})
       .catch((err) => {
         console.log(err);
       });
@@ -409,11 +416,39 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((response) => {
         if (!response.ok) {
           throw Error(response.status);
+          console.log("error");
         }
         (response) => response.json();
+        if (response) {
+          $("#login-modal").modal("hide");
+          $("#login-button").hide();
+          $("#logout-button").removeClass("invisible");
+          const helloMessage = document.createElement("p");
+          helloMessage.innerText = `Hello ${userToLogin.username}`;
+          document
+            .querySelector("#navbarSupportedContent")
+            .appendChild(helloMessage);
+        }
       })
-      .then((newUser) => {})
-      .catch((error) => console.log(error));
+      .catch((err) => {
+        console.log(err);
+      });
+
+    if (userToLogin.length > 0) {
+      console.log(username);
+    }
+  });
+
+  // logout user
+  logoutUser.addEventListener("click", (e) => {
+    e.preventDefault();
+    // if (loggedIn) {
+    // }
+    fetch("/session/logout").then(() => {
+      console.log("logged out");
+      $("#logout-button").addClass("invisible");
+      $("#login-button").show();
+    });
   });
 
   // submit search
@@ -421,7 +456,6 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
     let criteria =
       e.target.parentNode.previousSibling.previousSibling.children[1].value;
-    // console.log(criteria);
     fetch(`recipes/search=${criteria}`)
       .then((response) => response.json())
       .then((data) => {

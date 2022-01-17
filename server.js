@@ -4,7 +4,6 @@ const express = require("express");
 const app = express();
 const methodOverride = require("method-override");
 const SESSION_SECRET = process.env.SESSION_SECRET;
-// "e7143fa59dc178165998e0f2281a74c67d7a1e7f";
 app.set("port", process.env.PORT || 3000);
 const session = require("express-session");
 const recipeController = require("./controllers/recipeController");
@@ -17,6 +16,7 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
 
+// session middleware
 app.use(
   session({
     secret: SESSION_SECRET,
@@ -24,6 +24,26 @@ app.use(
     saveUninitialized: false,
   })
 );
+
+app.use((req, res, next) => {
+  res.locals.username = req.session.username;
+  res.locals.loggedIn = req.session.loggedIn;
+  next();
+});
+
+app.use((req, res, next) => {
+  res.locals.message = req.session.message;
+  req.session.message = "";
+  next();
+});
+
+const authRequired = (req, res, next) => {
+  if (req.session.loggedIn) {
+    next();
+  } else {
+    res.redirect("/session/login");
+  }
+};
 
 app.get("/", (req, res) => {
   res.render("index.ejs");

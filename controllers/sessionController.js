@@ -14,35 +14,36 @@ router.get("/all_users", (req, res, next) => {
     .catch(next);
 });
 
-// User Show Route
-router.get("/:id", (req, res) => {
-  User.findById(req.params.id).then((user) => {
-    res.json(user);
-  });
-});
-
 // User New Route (Create)
 router.post("/register", async (req, res, next) => {
   console.log("req.body: ", req.body);
   try {
-    const desiredUsername = req.body.username;
-    const userExists = await User.findOne({ username: desiredUsername });
-    if (userExists) {
-      console.log("username exists");
-      // req.session.message = "User name is already taken";
+    if (req.body.password === req.body.verifyPassword) {
+      const desiredUsername = req.body.username;
+      const userExists = await User.findOne({ username: desiredUsername });
+      if (userExists) {
+        console.log("username exists");
+        // req.session.message = "User name is already taken";
+      } else {
+        console.log(req.body);
+        const salt = bcrypt.genSaltSync(10);
+        const hashedPassword = bcrypt.hashSync(req.body.password, salt);
+        req.body.password = hashedPassword;
+        const createdUser = await User.create(req.body, (err, newUser) => {
+          // console.log(newUser);
+          req.session.username = newUser.username;
+        });
+        // console.log(req.session.username);
+        req.session.username = createdUser.username;
+        // console.log(createdUser);
+        res.json(createdUser);
+        // console.log(req.session);
+        console.log("new user created:  " + req.session.username);
+        req.session.loggedIn = true;
+      }
     } else {
-      const salt = bcrypt.genSaltSync(10);
-      const hashedPassword = bcrypt.hashSync(req.body.password, salt);
-      req.body.password = hashedPassword;
-      const createdUser = await User.create(req.body, (err, newUser) => {
-        console.log(newUser);
-        req.session.username = newUser.username;
-      });
-      console.log(req.session.username);
-      // req.session.username = createdUser.username;
-      console.log(createdUser);
-      console.log(req.session);
-      // req.session.loggedIn = true;
+      req.session.message = "Passwords must match";
+      res.redirect("/session/register");
     }
   } catch (err) {
     next(err);
@@ -61,8 +62,10 @@ router.post("/login", async (req, res, next) => {
       );
       if (validPassword) {
         req.session.username = userToLogin.username;
-        req.session.loggedOn = true;
-        res.redirect("/recipes");
+        req.session.loggedIn = true;
+        req.session.message = "good job";
+        console.log(req.session);
+        res.json(userToLogin);
       }
     } else {
       req.session.message = "Invalid uername or password";
@@ -70,10 +73,18 @@ router.post("/login", async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+  // res.redirect("/recipes");
+});
+
+// logout route
+router.get("/logout", (req, res, next) => {
+  req.session.destroy();
+  console.log(req.session);
+  res.json();
 });
 
 // User Edit Route
-router.put("/:id", (req, res) => {
+router.put("/edit/:id", (req, res) => {
   User.findByIdAndUpdate(
     req.params.id,
     req.body,
@@ -85,7 +96,7 @@ router.put("/:id", (req, res) => {
 });
 
 // User Delete Route
-router.delete("/:id", (req, res) => {
+router.delete("/delete/:id", (req, res) => {
   User.findByIdAndRemove(req.params.id, (err, deletedUser) => {
     res.redirect("/all_users");
   });
