@@ -176,8 +176,6 @@ document.addEventListener("DOMContentLoaded", function () {
           tags: document.getElementById("tagsEdit").value.split(/[.,]/g),
         };
 
-        console.log(edittedRecipe);
-
         const options = {
           method: "PUT",
           headers: {
@@ -192,9 +190,6 @@ document.addEventListener("DOMContentLoaded", function () {
               throw Error(response.status);
             }
             (response) => response.json();
-          })
-          .then((edit) => {
-            console.log(edit);
           })
           .catch((err) => {
             console.log(err);

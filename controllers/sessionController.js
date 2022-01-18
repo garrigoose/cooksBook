@@ -29,9 +29,9 @@ router.post("/register", async (req, res, next) => {
       };
       const createdUser = await User.create(newUser);
       req.session.username = createdUser.username;
-      res.json({ user: createdUser });
-      console.log("new user created:  " + req.session.username);
       req.session.loggedIn = true;
+      res.json({ user: createdUser });
+      console.log(req.session);
     }
   } catch (err) {
     next(err);
