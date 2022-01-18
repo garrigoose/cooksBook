@@ -43,17 +43,13 @@ router.get("/:id", (req, res) => {
 });
 
 // Recipe New Route (Create)
-router.post(
-  "/",
-  // authRequired,
-  (req, res, next) => {
-    Recipe.create(req.body)
-      .then((newRecipe) => {
-        res.json(newRecipe);
-      })
-      .catch(next);
-  }
-);
+router.post("/", authRequired, (req, res, next) => {
+  Recipe.create(req.body)
+    .then((newRecipe) => {
+      res.json(newRecipe);
+    })
+    .catch(next);
+});
 
 // Recipe Edit Route
 router.put("/:id", authRequired, (req, res) => {
@@ -69,16 +65,12 @@ router.put("/:id", authRequired, (req, res) => {
 });
 
 // Recipe Delete Route
-router.delete(
-  "/:id",
-  // authRequired,
-  (req, res) => {
-    Recipe.findByIdAndRemove(req.params.id, (err, deletedRecipe) => {
-      res.json({
-        message: "Recipe Deleted",
-      });
+router.delete("/:id", authRequired, (req, res) => {
+  Recipe.findByIdAndRemove(req.params.id, (err, deletedRecipe) => {
+    res.json({
+      message: "Recipe Deleted",
     });
-  }
-);
+  });
+});
 
 module.exports = router;

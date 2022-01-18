@@ -89,8 +89,7 @@ This data manipulation is implemented in a modal-focused design. Instead of a la
 - [Lectures](https://docs.google.com/spreadsheets/d/1RvTq4bMfzpWi_z5jwzvl9oY2awkimTsHEd_kINB42dM/edit#gid=1484451821)
 - [Bootstrap Docs](https://getbootstrap.com/)
 - [MDN](https://developer.mozilla.org/en-US/)
-- [W3Schools](
-  W3Schools Online Web Tutorialshttps://www.w3schools.com)
+- [W3Schools](https://www.w3schools.com)
 - [GeeksforGeeks](https://www.geeksforgeeks.org/)
 - [Stack Overflow](https://stackoverflow.com/)
 - [title](https://www.example.com)
