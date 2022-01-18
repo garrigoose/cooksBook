@@ -44,45 +44,33 @@ router.get("/:id", (req, res) => {
 });
 
 // Recipe New Route (Create)
-router.post(
-  "/",
-  // authRequired,
-  (req, res, next) => {
-    Recipe.create(req.body)
-      .then((newRecipe) => {
-        res.json(newRecipe);
-      })
-      .catch(next);
-  }
-);
+router.post("/", authRequired, (req, res, next) => {
+  Recipe.create(req.body)
+    .then((newRecipe) => {
+      res.json(newRecipe);
+    })
+    .catch(next);
+});
 
 // Recipe Edit Route
-router.put(
-  "/:id",
-  // authRequired,
-  (req, res) => {
-    console.log("this is req.body: ");
-    console.log(req.body);
-    Recipe.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true },
-      (err, updatedRecipe) => {
-        console.log("updated recipe" + updatedRecipe);
-      }
-    );
-  }
-);
+router.put("/:id", authRequired, (req, res) => {
+  console.log("this is req.body: ");
+  console.log(req.body);
+  Recipe.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    { new: true },
+    (err, updatedRecipe) => {
+      console.log("updated recipe" + updatedRecipe);
+    }
+  );
+});
 
 // Recipe Delete Route
-router.delete(
-  "/:id",
-  // authRequired,
-  (req, res) => {
-    Recipe.findByIdAndRemove(req.params.id, (err, deletedRecipe) => {
-      res.redirect("/all_recipes");
-    });
-  }
-);
+router.delete("/:id", authRequired, (req, res) => {
+  Recipe.findByIdAndRemove(req.params.id, (err, deletedRecipe) => {
+    res.redirect("/all_recipes");
+  });
+});
 
 module.exports = router;

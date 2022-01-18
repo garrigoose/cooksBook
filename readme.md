@@ -28,13 +28,9 @@ List of Mongoose models and their properties
 | Username | String, required, unique |
 | Password | String, required         |
 
-|Username
-User:
-name: String,
-password: String,
-
 List of Routes
-CRUD for Tweet:
+|Action|Method|Path|Action|
+|------|------|----|------|
 
 Action Method Path Action
 index GET /tweets Read information about all tweets

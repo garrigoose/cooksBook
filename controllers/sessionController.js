@@ -14,7 +14,6 @@ router.get("/all_users", (req, res, next) => {
 router.post("/register", async (req, res, next) => {
   console.log("req.body: ", req.body);
   try {
-    // if (req.body.password === req.body.verifyPassword) {
     const desiredUsername = req.body.username;
     const userExists = await User.findOne({ username: desiredUsername });
     if (userExists) {
@@ -34,12 +33,6 @@ router.post("/register", async (req, res, next) => {
       console.log("new user created:  " + req.session.username);
       req.session.loggedIn = true;
     }
-    // } else {
-    //   req.session.message = "Passwords must match";
-    //   res.json({
-    //     message: "Passwords do not match",
-    //   });
-    // }
   } catch (err) {
     next(err);
   }
@@ -63,7 +56,9 @@ router.post("/login", async (req, res, next) => {
         res.json(userToLogin);
       }
     } else {
-      console.log("invalid username or password");
+      res.json({
+        messsage: "Invalid uername or password",
+      });
       req.session.message = "Invalid uername or password";
     }
   } catch (err) {
@@ -76,18 +71,6 @@ router.get("/logout", (req, res, next) => {
   req.session.destroy();
   console.log(req.session);
   res.json();
-});
-
-// User Edit Route
-router.put("/edit/:id", (req, res) => {
-  User.findByIdAndUpdate(
-    req.params.id,
-    req.body,
-    { new: true },
-    (err, updatedUser) => {
-      console.log("updated user" + updatedUser);
-    }
-  );
 });
 
 // User Delete Route

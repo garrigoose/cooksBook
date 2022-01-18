@@ -122,40 +122,22 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // iterate through tags and spit out clickable list
-    let tagsList = document.querySelector("#tags-list");
+    let tagsList = document.getElementById("tags-list");
+
     tags.forEach((tag) => {
       let listItem = document.createElement("button");
       listItem.setAttribute("class", "button btn-primary btn btn-sm m-1 tag");
       listItem.setAttribute("id", tag);
-      // listItem.setAttribute("onclick", "console.log('click')");
-      // console.log(listItem);
-      // let tagId = document.getElementById(tag);
-      // console.log(tagId);
-      // document.querySelector("#Potatoes").addEventListener("click", (e) => {
-      // e.preventDefault();
-      // console.log(e);
-      //   let criteria =
-      //     e.target.parentNode.previousSibling.previousSibling.children[1].value;
-      //   // console.log(criteria);
-      //   fetch(`recipes/search=${criteria}`)
-      //     .then((response) => response.json())
-      //     .then((data) => {
-      //       addRecipes(data);
-      //       $("#searchModal").modal("hide");
-      //       console.log("recipes loaded");
-      //     })
-      //     .catch((error) => console.log(error));
-      // });
-
-      // tags.forEach((tag) => {
-      //   console.log(tag);
-      //   if (tag !== null) {
-      //     document.querySelector(tag).addEventListener("click", (e) => {
-      //       e.preventDefault();
-      //       console.log(e.target);
-      //     });
-      //   }
-      // });
+      listItem.addEventListener("click", (e) => {
+        e.preventDefault();
+        fetch(`recipes/search=${tag}`)
+          .then((response) => response.json())
+          .then((data) => {
+            addRecipes(data);
+            console.log("recipes loaded");
+          })
+          .catch((error) => console.log(error));
+      });
 
       listItem.innerText = tag;
       tagsList.appendChild(listItem);
@@ -390,11 +372,18 @@ document.addEventListener("DOMContentLoaded", function () {
           }
           (response) => response.json();
           $("#create-account-modal").modal("hide");
+          $("#login-button").hide();
+          $("#logout-button").removeClass("invisible");
+          const helloMessage = document.createElement("p");
+          helloMessage.innerText = `Hello ${username}`;
+          document.querySelector("#welcome-div").appendChild(helloMessage);
         })
         .then((newUser) => {})
         .catch((error) => console.log(error));
     } else {
-      alert("Passwords must match");
+      alertMessage = document.createElement("p");
+      alertMessage.innerText = "Passwords must match";
+      document.querySelector("#welcome-div").appendChild(alertMessage);
     }
   });
 
@@ -431,6 +420,7 @@ document.addEventListener("DOMContentLoaded", function () {
           document.querySelector("#welcome-div").appendChild(helloMessage);
         }
       })
+      .then((data) => console.log(data))
       .catch((err) => {
         console.log(err);
       });
