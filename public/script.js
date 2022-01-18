@@ -1,24 +1,22 @@
 document.addEventListener("DOMContentLoaded", function () {
   // constants
-  {
-    const homeButtons = document.querySelector("#home-button");
-    const recipes = document.querySelector("#recipes");
-    const loader = document.querySelector("#loader");
-    const searcher = document.querySelector("#searcher");
-    const adder = document.querySelector("#adder");
-    const creater = document.querySelector("#create-recipe-button");
-    const loginer = document.querySelector("#login-button");
-    const registerer = document.querySelector("#open-register-modal");
-    const closeAddModal = document.querySelector("#close-add-modal");
-    const closeEditModal = document.querySelector("#close-edit-modal");
-    const closeSearchModal = document.querySelector("#close-search-modal");
-    const closeRegisterModal = document.querySelector("#close-register-modal");
-    const closeLoginModal = document.querySelector("#close-login-modal");
-    const submitSearch = document.querySelector("#search-recipe-button");
-    const createUser = document.querySelector("#create-user-button");
-    const loginUser = document.querySelector("#login-user-button");
-    const logoutUser = document.querySelector("#logout-button");
-  }
+  const homeButtons = document.querySelector("#home-button");
+  const recipes = document.querySelector("#recipes");
+  const loader = document.querySelector("#loader");
+  const searcher = document.querySelector("#searcher");
+  const adder = document.querySelector("#adder");
+  const creater = document.querySelector("#create-recipe-button");
+  const loginer = document.querySelector("#login-button");
+  const registerer = document.querySelector("#open-register-modal");
+  const closeAddModal = document.querySelector("#close-add-modal");
+  const closeEditModal = document.querySelector("#close-edit-modal");
+  const closeSearchModal = document.querySelector("#close-search-modal");
+  const closeRegisterModal = document.querySelector("#close-register-modal");
+  const closeLoginModal = document.querySelector("#close-login-modal");
+  const submitSearch = document.querySelector("#search-recipe-button");
+  const createUser = document.querySelector("#create-user-button");
+  const loginUser = document.querySelector("#login-user-button");
+  const logoutUser = document.querySelector("#logout-button");
 
   // functions
 
