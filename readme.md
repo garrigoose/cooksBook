@@ -94,7 +94,6 @@ This data manipulation is implemented in a modal-focused design. Instead of a la
 - [W3Schools](https://www.w3schools.com)
 - [GeeksforGeeks](https://www.geeksforgeeks.org/)
 - [Stack Overflow](https://stackoverflow.com/)
-- [title](https://www.example.com)
 
 ## Goals
 
