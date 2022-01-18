@@ -10,6 +10,8 @@ I have built an app called cooksBook. It is a repository of recipes to which reg
 
 The MVP consists of a full CRUD application capable of displaying recipe data, taking in data from a form and saving to a database, selecting recipes from the database individually, and editting and deleting them.
 
+This MVP was expanded upon with a second model for users. This model's availability allows for session object control. State is used to set user authorization to modify the database.
+
 This data manipulation is implemented in a modal-focused design. Instead of a layout rendering pages, the DOM is used to swap visual information.
 
 ## Usability
