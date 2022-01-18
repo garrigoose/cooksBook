@@ -100,4 +100,5 @@ This data manipulation is implemented in a modal-focused design. Instead of a la
 
 - Add owner authentication
 - Add share option
--
+- Incorporate 3rd party API for recipe search
+- Link the carousel to recipe pages
