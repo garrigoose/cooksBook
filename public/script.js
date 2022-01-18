@@ -420,7 +420,6 @@ document.addEventListener("DOMContentLoaded", function () {
           document.querySelector("#welcome-div").appendChild(helloMessage);
         }
       })
-      .then((data) => console.log(data))
       .catch((err) => {
         console.log(err);
       });

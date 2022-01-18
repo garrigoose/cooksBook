@@ -6,7 +6,7 @@ const authRequired = (req, res, next) => {
   if (req.session.loggedIn) {
     next();
   } else {
-    res.redirect("/session/login");
+    // res.redirect("/session/login");
   }
 };
 
@@ -44,13 +44,17 @@ router.get("/:id", (req, res) => {
 });
 
 // Recipe New Route (Create)
-router.post("/", authRequired, (req, res, next) => {
-  Recipe.create(req.body)
-    .then((newRecipe) => {
-      res.json(newRecipe);
-    })
-    .catch(next);
-});
+router.post(
+  "/",
+  // authRequired,
+  (req, res, next) => {
+    Recipe.create(req.body)
+      .then((newRecipe) => {
+        res.json(newRecipe);
+      })
+      .catch(next);
+  }
+);
 
 // Recipe Edit Route
 router.put("/:id", authRequired, (req, res) => {
@@ -61,7 +65,7 @@ router.put("/:id", authRequired, (req, res) => {
     req.body,
     { new: true },
     (err, updatedRecipe) => {
-      console.log("updated recipe" + updatedRecipe);
+      console.log(err);
     }
   );
 });
