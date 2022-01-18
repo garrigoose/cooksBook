@@ -6,7 +6,7 @@ const authRequired = (req, res, next) => {
   if (req.session.loggedIn) {
     next();
   } else {
-    // res.redirect("/session/login");
+    console.log("Please Login");
   }
 };
 
@@ -31,7 +31,6 @@ router.get("/search=:criteria", (req, res) => {
   })
     .collation({ locale: "en_US" })
     .then((recipes) => {
-      console.log(recipes);
       res.json(recipes);
     });
 });
@@ -79,7 +78,9 @@ router.delete(
   // authRequired,
   (req, res) => {
     Recipe.findByIdAndRemove(req.params.id, (err, deletedRecipe) => {
-      res.redirect("/all_recipes");
+      res.json({
+        message: "Recipe Deleted",
+      });
     });
   }
 );

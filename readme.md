@@ -31,6 +31,15 @@ List of Mongoose models and their properties
 List of Routes
 |Action|Method|Path|Action|
 |------|------|----|------|
+| index | GET | /recipes/all_recipes | Read information about all recipes |
+| index | GET | /recipes/search=:criteria | Read information about recipes matching search creiteria |
+| create | POST | /recipes/new | Create a new recipe |
+| show | GET | /recipes/:id | Read information about one recipes whose ID is :id |
+| update | PUT | /recipes/:id | Update information of one recipe whose ID is :id with partially new content |
+| destroy | DELETE | /recipes/:id | Delete existing recipe whose ID is :id |
+| index | POST | /session/register | Create a new User |
+| create | POST | /session/login | Create a session for an existing user |
+| destroy | GET | /session/delete:id | Delete an existing session whose ID is :id |
 
 Action Method Path Action
 index GET /tweets Read information about all tweets

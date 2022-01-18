@@ -1,25 +1,24 @@
 document.addEventListener("DOMContentLoaded", function () {
   // constants
-  const homeButtons = document.querySelector("#home-button");
-  const recipes = document.querySelector("#recipes");
-  const loader = document.querySelector("#loader");
-  const searcher = document.querySelector("#searcher");
-  const adder = document.querySelector("#adder");
-  const creater = document.querySelector("#create-recipe-button");
-  const loginer = document.querySelector("#login-button");
-  const registerer = document.querySelector("#open-register-modal");
-  const closeAddModal = document.querySelector("#close-add-modal");
-  const closeEditModal = document.querySelector("#close-edit-modal");
-  const closeSearchModal = document.querySelector("#close-search-modal");
-  const closeRegisterModal = document.querySelector("#close-register-modal");
-  const closeLoginModal = document.querySelector("#close-login-modal");
-  const submitSearch = document.querySelector("#search-recipe-button");
-  const createUser = document.querySelector("#create-user-button");
-  const loginUser = document.querySelector("#login-user-button");
-  const logoutUser = document.querySelector("#logout-button");
-  const welcomeDiv = document.querySelector("#welcome-message");
-
-  $();
+  {
+    const homeButtons = document.querySelector("#home-button");
+    const recipes = document.querySelector("#recipes");
+    const loader = document.querySelector("#loader");
+    const searcher = document.querySelector("#searcher");
+    const adder = document.querySelector("#adder");
+    const creater = document.querySelector("#create-recipe-button");
+    const loginer = document.querySelector("#login-button");
+    const registerer = document.querySelector("#open-register-modal");
+    const closeAddModal = document.querySelector("#close-add-modal");
+    const closeEditModal = document.querySelector("#close-edit-modal");
+    const closeSearchModal = document.querySelector("#close-search-modal");
+    const closeRegisterModal = document.querySelector("#close-register-modal");
+    const closeLoginModal = document.querySelector("#close-login-modal");
+    const submitSearch = document.querySelector("#search-recipe-button");
+    const createUser = document.querySelector("#create-user-button");
+    const loginUser = document.querySelector("#login-user-button");
+    const logoutUser = document.querySelector("#logout-button");
+  }
 
   // functions
 
@@ -150,7 +149,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // open edit modal
     editter.addEventListener("click", (e) => {
       e.preventDefault();
-      console.log(recipe);
       $("#editModal").modal("show");
       document.getElementById("titleEdit").value = recipe.title;
       document.getElementById("descriptionEdit").value = recipe.description;
@@ -169,7 +167,6 @@ document.addEventListener("DOMContentLoaded", function () {
       .addEventListener("click", (e) => {
         e.preventDefault();
         console.log("submiter clicked");
-
         const edittedRecipe = {
           title: document.getElementById("titleEdit").value,
           description: document.getElementById("descriptionEdit").value,
@@ -211,7 +208,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // delete recipe and redirect to /all_recipes
     deleter.addEventListener("click", (e) => {
-      // e.preventDefault();
+      e.preventDefault();
       fetch(`/recipes/${e.target.dataset.id}`, {
         method: "DELETE",
       })
@@ -229,17 +226,9 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((response) => response.json())
       .then((data) => {
         addRecipes(data);
-        console.log("recipes loaded");
       })
       .catch((error) => console.log(error));
   }
-
-  // convert string blob to array of strings on , or .
-  function arrayify(str) {
-    return (arr = str.split(/[.,]/g));
-  }
-
-  // event listeners
 
   // load index of all recipes
   function loadAllRecipes() {
@@ -251,6 +240,9 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .catch((error) => console.log(error));
   }
+
+  // event listeners
+
   loader.addEventListener("click", (e) => {
     e.preventDefault();
     loadAllRecipes();

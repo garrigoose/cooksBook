@@ -1,6 +1,5 @@
 .recipe-text {
   white-space: wrap;
-  width: 150px;
+  width: 90%;
   overflow: hidden;
-  /* text-overflow: ellipsis; */
 }
