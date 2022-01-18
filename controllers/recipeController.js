@@ -58,14 +58,13 @@ router.post(
 
 // Recipe Edit Route
 router.put("/:id", authRequired, (req, res) => {
-  console.log("this is req.body: ");
-  console.log(req.body);
   Recipe.findByIdAndUpdate(
     req.params.id,
     req.body,
     { new: true },
     (err, updatedRecipe) => {
       console.log(err);
+      res.json(updatedRecipe);
     }
   );
 });

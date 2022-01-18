@@ -169,6 +169,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .addEventListener("click", (e) => {
         e.preventDefault();
         console.log("submiter clicked");
+
         const edittedRecipe = {
           title: document.getElementById("titleEdit").value,
           description: document.getElementById("descriptionEdit").value,
