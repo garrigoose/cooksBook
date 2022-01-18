@@ -57,23 +57,31 @@ router.post(
 );
 
 // Recipe Edit Route
-router.put("/:id", authRequired, (req, res) => {
-  Recipe.findByIdAndUpdate(
-    req.params.id,
-    req.body,
-    { new: true },
-    (err, updatedRecipe) => {
-      console.log(err);
-      res.json(updatedRecipe);
-    }
-  );
-});
+router.put(
+  "/:id",
+  // authRequired,
+  (req, res) => {
+    Recipe.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true },
+      (err, updatedRecipe) => {
+        console.log(err);
+        res.json(updatedRecipe);
+      }
+    );
+  }
+);
 
 // Recipe Delete Route
-router.delete("/:id", authRequired, (req, res) => {
-  Recipe.findByIdAndRemove(req.params.id, (err, deletedRecipe) => {
-    res.redirect("/all_recipes");
-  });
-});
+router.delete(
+  "/:id",
+  // authRequired,
+  (req, res) => {
+    Recipe.findByIdAndRemove(req.params.id, (err, deletedRecipe) => {
+      res.redirect("/all_recipes");
+    });
+  }
+);
 
 module.exports = router;
