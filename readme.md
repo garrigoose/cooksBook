@@ -93,3 +93,9 @@ This data manipulation is implemented in a modal-focused design. Instead of a la
 - [GeeksforGeeks](https://www.geeksforgeeks.org/)
 - [Stack Overflow](https://stackoverflow.com/)
 - [title](https://www.example.com)
+
+## Goals
+
+- Add owner authentication
+- Add share option
+-
