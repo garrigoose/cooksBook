@@ -277,7 +277,15 @@ document.addEventListener("DOMContentLoaded", function () {
         (response) => response.json();
         console.log(`new recipe created: `, newRecipe.title);
       })
-      .then((newRecipe) => {})
+      .then(() => {
+        document.getElementById("title").value =
+          document.getElementById("description").value =
+          document.getElementById("ingredients").value =
+          document.getElementById("steps").value =
+          document.getElementById("image").value =
+          document.getElementById("tags").value =
+            "";
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -364,7 +372,12 @@ document.addEventListener("DOMContentLoaded", function () {
           helloMessage.innerText = `Hello ${username}`;
           document.querySelector("#welcome-div").appendChild(helloMessage);
         })
-        .then((newUser) => {})
+        .then(() => {
+          e.target.parentNode.parentNode.children[0].children[1].value =
+            e.target.parentNode.parentNode.children[1].children[1].value =
+            e.target.parentNode.parentNode.children[2].children[1].value =
+              "";
+        })
         .catch((error) => console.log(error));
     } else {
       alertMessage = document.createElement("p");
@@ -404,6 +417,8 @@ document.addEventListener("DOMContentLoaded", function () {
           const helloMessage = document.createElement("p");
           helloMessage.innerText = `Hello ${userToLogin.username}`;
           document.querySelector("#welcome-div").appendChild(helloMessage);
+          e.target.parentNode.parentNode[0].value =
+            e.target.parentNode.parentNode[1].value = "";
         }
       })
       .catch((err) => {
@@ -435,6 +450,8 @@ document.addEventListener("DOMContentLoaded", function () {
         $("#searchModal").modal("hide");
         console.log("recipes loaded");
         document.querySelector("#welcome-div").innerHTML = "";
+        e.target.parentNode.previousSibling.previousSibling.children[1].value =
+          "";
       })
       .catch((error) => console.log(error));
   });

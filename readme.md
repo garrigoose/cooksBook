@@ -10,6 +10,20 @@ The MVP consists of a full CRUD application capable of displaying recipe data, t
 
 This data manipulation is implemented in a modal-focused design. Instead of a layout rendering pages, the DOM is used to swap visual information.
 
+## Usability
+
+- Navbar:
+  - Home: loads landing content
+  - All Recipes: loads all content in database
+  - New Recipe: opens modal to submit new recipe to database
+  - Search: opens modal to submit keyword search on all of document's strings
+  - Login: opens modal to being user session or register a new user
+  - Logout: destroys user session
+- Go To Recipe:
+  - Opens individual recipe modal and displays document's content (iterates over arrays to create lists, buttons)
+  - Edit: opens update modal to submit document changes (only available to logged-in user)
+  - Delete: destroys individual document (only available to logged-in user)
+
 ## Technologies Used
 
 - Frontend - HTML, CSS, JavaScript, Bootstrap
@@ -59,4 +73,22 @@ This data manipulation is implemented in a modal-focused design. Instead of a la
 ![recipe layout](https://media.git.generalassemb.ly/user/38981/files/18716800-6358-11ec-9471-4a39a2df14f4)
 ![modal design](https://media.git.generalassemb.ly/user/38981/files/1909fe80-6358-11ec-8068-c5015f037fbf)
 
-Image
+## User stories
+
+- As a user I wants to save recipes to access later
+- As a user I wants to have access to my saved recipes only after I login
+- As a user I wants to search my recipes for a particular one
+- As a user I wants to search a database for recipes to use
+- As a user I wants to save searched recipes
+- As a user I wants to convert ingredient measurements
+
+## Resources Used
+
+- [Lectures](https://docs.google.com/spreadsheets/d/1RvTq4bMfzpWi_z5jwzvl9oY2awkimTsHEd_kINB42dM/edit#gid=1484451821)
+- [Bootstrap Docs](https://getbootstrap.com/)
+- [MDN](https://developer.mozilla.org/en-US/)
+- [W3Schools](
+  W3Schools Online Web Tutorialshttps://www.w3schools.com)
+- [GeeksforGeeks](https://www.geeksforgeeks.org/)
+- [Stack Overflow](https://stackoverflow.com/)
+- [title](https://www.example.com)
