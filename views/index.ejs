@@ -23,7 +23,7 @@
   
   </head>
   <body style="background-image: url('https://images.pexels.com/photos/616484/pexels-photo-616484.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'); background-size: cover; background-repeat: no-repeat; 
-  background-attachment: fixed; ">
+  background-attachment: fixed; height: 100vh">
 
     <nav class="navbar navbar-expand-md navbar-expand-lg navbar-light fixed-top bg-light" id='nav-container'>
       <div class="container-fluid bg-light">
@@ -61,7 +61,11 @@
           <div class="d-sm-flex align-items-center justify-content-between m-10 col-12">
             <p class="lead my-4 col-6">
               All of the web's best recipes in one place. Crowdsourced by cookBook's hungry users.
+              <br>
+              <br>
+              Use our app in the kitchen to quickly and easily sort through a world of food.
             </p>
+            <br>
             <img
               class="img-fluid w-80 d-none d-sm-block m-10 col-6"
               src="/images/transparent_kitchen.png"
@@ -137,7 +141,7 @@
 
             <div class="form-group">
               <label class="form-label" for="steps">Steps</label>
-              <input class='form-control' type="text" name="steps" id="steps" placeholder="Separate steps with a comma or period">
+              <textarea name="Text1" cols="40" rows="5" class='form-control' type="text" name="steps" id="steps" placeholder="Separate steps with a comma or period"></textarea>
             </div>
 
             <div class="form-group">
@@ -322,7 +326,7 @@
     </div>
   </div>
 
-    <footer id="sticky-footer" class="container-fluid flex-shrink-0 bg-light text-black-50 w-100">
+    <footer id="sticky-bottom" class="container-fluid flex-shrink-0 bg-light text-black-50 w-100">
       <div class="container text-center">
         <small>Copyright &copy; cooksBook 2022</small>
       </div>
